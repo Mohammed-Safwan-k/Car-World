@@ -19,6 +19,10 @@ router.get("/allproduct", controller.viewproduct)
 router.get("/addproductpage", controller.addproductpage)
 router.get("/adduserpage", controller.adduserpage)
 
+router.get('/brandpage',controller.brandpage)
+router.get('/vehicletype',controller.vehicletypepage)
+router.get('/fueltypepage',controller.fueltypepage)
+
 
 
 
@@ -33,6 +37,16 @@ router.get("/adminlogout", controller.logout)
 router.post("/", controller.adminlogin)
 router.post("/addproduct", controller.addproduct)
 router.post("/adduser", controller.adduser)
+
+router.post("/addBrand",controller.addBrand)
+router.post("/deletebrand/:id",controller.deletebrand)
+router.post("/addvehicletype",controller.addvehicletype)
+router.post("/deletevehicletype/:id",controller.deletevehicletype)
+
+router.post("/addfueltype",controller.addfuel)
+router.post("/deletefueltype/:id",controller.deletefueltype)
+
+
 
 
 

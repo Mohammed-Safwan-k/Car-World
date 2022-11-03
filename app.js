@@ -3,9 +3,10 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const mongoose = require('./configuration/connection');
 const session = require('express-session');
+const multer = require('multer')
+
 const homeRoute = require("./routes/User");
 const adminRoute = require("./routes/Admin");
-const multer = require('multer')
 
 
 
@@ -25,8 +26,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/images', express.static(path.join(__dirname, 'images')))
-app.use(multer({dest: 'images'}).single('image'))
+// app.use('/images', express.static(path.join(__dirname, 'images')))
+// app.use(multer({dest: 'images'}).single('image'))
+
+// Multer (file upload setup)
+const storage = multer.diskStorage({
+    destination: (req,file,cb) => {
+        cb(null, "public/images/car");
+    },
+    filename: (req,file,cb) => {
+        cb(null,file.fieldname +"_" + Date.now() + path.extname(file.originalname))
+        console.log(file.fieldname + Date.now() + path.extname(file.originalname));
+    },
+});
+// const upload = multer({ storage: storage})
+app.use(multer({dest: "public/images/car", storage: storage}).single("image"))
 
 
 //session

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const brandSchema = new mongoose.Schema({
-    fuelType: {
+    brand: {
         type: String,
         required: true
     }

@@ -14,9 +14,12 @@
             <th scope="col">#</th>
             <th scope="col">Type</th>
             <th scope="col">Brand</th>
+            <th scope="col">FUEL TYPE</th>
             <th scope="col">Car Name</th>
             <th scope="col">Details</th>
             <th scope="col">Price</th>
+            <th scope="col">Image</th>
+            <th scope="col">OPTIONS</th>
           </tr>
         </thead>
         <tbody>
@@ -25,9 +28,15 @@
             <th scope="row"><%= index++ %></th>
             <td><%= product.type %></td>
             <td><%= product.brand %></td>
+            <td><%= product.fuelType %></td>
             <td><%= product.productName %></td>
             <td><%= product.discription %></td>
             <td><%= product.price %></td>
+            <td><img src="/<%= product.image %>" alt="" style="height: 50px; width: 60px;"></td>
+            <td><a class="btn btn-primary" href="#" role="button">Link</a> <br>
+                <a class="btn btn-primary" href="#" role="button">Link</a>
+            </td>
+            
           </tr>
           <% }) %>
         </tbody>

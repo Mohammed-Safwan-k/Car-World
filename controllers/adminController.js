@@ -1,7 +1,9 @@
 const AdminModel = require("../models/adminModel");
 const UserModel = require("../models/userModel");
 const ProductModel = require("../models/productModel");
-const VehicleTypeModel = require("../models/vehicletypeModel");
+const BrandModel = require("../models/brandModel");
+const TypeModel = require("../models/vehicletypeModel")
+const FuelModel = require('../models/fueltypeModel')
 
 const bcrypt = require("bcrypt");
 
@@ -84,23 +86,23 @@ module.exports = {
             //   phone: req.body.phone,
             //   password: req.body.password
             // }
-          );
-          console.log(req.body);
-          bcrypt.genSalt(10, (err, salt) => {
+        );
+        console.log(req.body);
+        bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
-              if (err) throw err;
-              newUser.password = hash;
-              newUser
-                .save()
-                .then(() => {
-                  res.redirect("/admin/adminhome");
-                })
-                .catch((err) => {
-                  console.log(err);
-                  res.redirect("/admin/adminhome")
-                })
+                if (err) throw err;
+                newUser.password = hash;
+                newUser
+                    .save()
+                    .then(() => {
+                        res.redirect("/admin/adminhome");
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        res.redirect("/admin/adminhome")
+                    })
             })
-          })
+        })
 
         // const newUser = UserModel(req.body);
         // try {
@@ -132,15 +134,15 @@ module.exports = {
 
     //add products
     addproduct: async (req, res) => {
-        const newProduct = productModel(req.body);
-        console.log(req.body)
-        try {
-            await newProduct.save()
-            res.render("admin/adminhome")
-        } catch {
-            console.log(err, 'error')
-            res.render("admin/adminhome")
-        }
+        // const newProduct = ProductModel(req.body);
+        // console.log(req.body)
+        // try {
+        //     await newProduct.save()
+        //     res.render("admin/adminhome")
+        // } catch {
+        //     console.log(err, 'error')
+        //     res.render("admin/adminhome")
+        // }
         // newProduct
         //     .save()
         //     .then(() => {
@@ -150,6 +152,33 @@ module.exports = {
         //         console.log(err, 'error')
         //         res.render("admin/adminhome")
         //     })
+
+
+
+        const { type, brand, fuelType, productName, discription, price } = req.body;
+
+        const image = req.file;
+        console.log(image);
+
+        const newProduct = ProductModel({
+            type,
+            brand,
+            fuelType,
+            productName,
+            discription,
+            price,
+            image: image.path,
+        });
+
+        await newProduct
+            .save()
+            .then(() => {
+                res.redirect("/admin/allproduct");
+            })
+            .catch((err) => {
+                console.log(err.message);
+                res.redirect("/admin/addproductpage");
+            });
     },
 
     //view all products
@@ -160,10 +189,77 @@ module.exports = {
     },
 
 
+    //------------------------------------------------------------------------------------------------------------------
+    // BRAND
+    brandpage: async (req, res) => {
+        const brand = await BrandModel.find({});
+        res.render('admin/brand', { brand })
+    },
+    // NEW BRAND
+    addBrand: (req, res) => {
+        const brand = req.body.brand;
+        const newBrand = BrandModel({ brand });
+        newBrand.save().then(res.redirect('/admin/brandpage'))
+    },
+    // DELETE BRAND
+    deletebrand: async (req, res) => {
+        let id = req.params.id;
+        // console.log("delete")
+        await BrandModel.findByIdAndDelete({ _id: id });
+        res.redirect("/admin/brandpage")
+    },
 
 
 
 
+
+    // VEHICLE TYPE
+    vehicletypepage: async (req, res) => {
+        const typeName = await TypeModel.find({});
+        res.render('admin/vehicleType', { typeName })
+    },
+    // NEW VEHICLE TYPE
+    addvehicletype: (req, res) => {
+        const typeName = req.body.typeName;
+        const newVehicleType = TypeModel({ typeName });
+        newVehicleType.save().then(res.redirect('/admin/vehicletype'))
+    },
+    // DELETE VEHICLE
+    deletevehicletype: async (req, res) => {
+        let id = req.params.id;
+        // console.log("delete")
+        await TypeModel.findByIdAndDelete({ _id: id });
+        res.redirect("/admin/vehicletype")
+    },
+
+
+
+
+    // FUEL TYPE
+    fueltypepage: async (req, res) => {
+        const fuelType = await FuelModel.find({});
+        res.render('admin/fuelType', { fuelType })
+    },
+    // NEW FUEL
+    addfuel: (req, res) => {
+        const fuelType = req.body.fuelType;
+        const newfuel = FuelModel({ fuelType });
+        newfuel.save().then(res.redirect('/admin/fueltypepage'))
+    },
+    // DELETE FUEL TYPE
+    deletefueltype: async (req, res) => {
+        let id = req.params.id;
+        // console.log("delete")
+        await FuelModel.findByIdAndDelete({ _id: id });
+        res.redirect("/admin/fueltypepage")
+    },
+
+
+
+
+
+
+    //------------------------------------------------------------------------------------------------------------------
 
 
 

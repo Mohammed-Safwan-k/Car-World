@@ -1,6 +1,5 @@
 const UserModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
-const twilioController= require('../controller/twilioController');
 const userModel = require("../models/userModel");
 
 
