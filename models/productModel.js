@@ -1,17 +1,22 @@
 const mongoose = require('mongoose');
-
+const Objectid = mongoose.Types.ObjectId
 const productSchema = new mongoose.Schema({
     type : {
-        type: String,
-        required: true
+        type: Objectid,
+        required: true,
+        ref:"VehicleData"
+
+        
     },
     brand : {
-        type: String,
-        required: true
+        type: Objectid,
+        required: true,
+        ref:"BrandData"
     },
     fuelType : {
-        type: String,
-        required: true
+        type: Objectid,
+        required: true,
+        ref:"FuelData"
     },
     productName : {
         type: String,
@@ -25,7 +30,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    image : {
+    image: {
         type: String,
         required: true
     }

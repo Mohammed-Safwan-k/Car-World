@@ -26,15 +26,15 @@
           <% products.forEach(function(product){ %>
           <tr>
             <th scope="row"><%= index++ %></th>
-            <td><%= product.type %></td>
-            <td><%= product.brand %></td>
-            <td><%= product.fuelType %></td>
+            <td><%= product.type.typeName %></td>
+            <td><%= product.brand.brand %></td>
+            <td><%= product.fuelType.fuelType %></td>
             <td><%= product.productName %></td>
             <td><%= product.discription %></td>
             <td><%= product.price %></td>
-            <td><img src="/<%= product.image %>" alt="" style="height: 50px; width: 60px;"></td>
-            <td><a class="btn btn-primary" href="#" role="button">Link</a> <br>
-                <a class="btn btn-primary" href="#" role="button">Link</a>
+            <td><img src='/images/<%= product.image %>' alt="" style="height: 50px; width: 60px;"></td>
+            <td><a class="btn btn-primary" href="#" role="button">edit</a> <br><br>
+                <a class="btn btn-primary" href="#" role="button">Delete</a>
             </td>
             
           </tr>

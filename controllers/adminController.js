@@ -39,9 +39,14 @@ module.exports = {
     },
 
     //add product page
-    addproductpage: (req, res) => {
+    addproductpage: async (req, res) => {
         if (req.session.adminLogin) {
-            res.render('admin/addproduct')
+            const type = await TypeModel.find()
+            const brand = await BrandModel.find()
+            const fuel = await FuelModel.find()
+
+            res.render('admin/addproduct', { type, brand, fuel })
+
         }
     },
 
@@ -167,8 +172,9 @@ module.exports = {
             productName,
             discription,
             price,
-            image: image.path,
+            image: image.filename,
         });
+        console.log(newProduct)
 
         await newProduct
             .save()
@@ -183,7 +189,8 @@ module.exports = {
 
     //view all products
     viewproduct: async (req, res) => {
-        const products = await ProductModel.find({})
+        const products = await ProductModel.find({}).populate('type','typeName').populate('brand','brand').populate('fuelType')
+        console.log(products)
         res.render('admin/viewproduct', { products, index: 1 })
 
     },
@@ -208,6 +215,8 @@ module.exports = {
         await BrandModel.findByIdAndDelete({ _id: id });
         res.redirect("/admin/brandpage")
     },
+
+
 
 
 
