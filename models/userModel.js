@@ -22,9 +22,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    type : {
+    status : {
         type: String,
-        default: 'user'
+        default: 'Unblocked'
     }
 
 })

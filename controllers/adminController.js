@@ -133,6 +133,25 @@ module.exports = {
 
     },
 
+    // Block and Unblock Users
+    blockUser: async (req, res) => {
+        const id = req.params.id
+        await UserModel.findByIdAndUpdate({_id:id},{$set:{status:"Blocked"}})
+        .then(() => {
+            res.redirect('/admin/alluser')
+        })
+    },
+
+
+
+    unblockUser: async (req, res) => {
+        const id = req.params.id
+        await UserModel.findByIdAndUpdate({_id:id},{$set:{status:"Unblocked"}})
+        .then(() => {
+            res.redirect('/admin/alluser')
+        })
+    },
+
     //-------------------------------------------------------------------------
     // PRODUCTS
 

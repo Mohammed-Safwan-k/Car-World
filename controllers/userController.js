@@ -87,7 +87,7 @@ module.exports = {
     //   }
     // });
     const { email, password } = req.body;
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({$and:[{email : email}, { status : "Unblocked"}] });
     if (!user) {
       return res.redirect('/signin');
     }

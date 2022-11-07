@@ -36,10 +36,14 @@ router.get("/adminlogout", controller.logout)
 
 router.post("/", controller.adminlogin)
 router.post("/addproduct", controller.addproduct)
+
 router.post("/adduser", controller.adduser)
+router.post("/unblockUser/:id",controller.unblockUser)
+router.post("/blockUser/:id",controller.blockUser)
 
 router.post("/addBrand",controller.addBrand)
 router.post("/deletebrand/:id",controller.deletebrand)
+
 router.post("/addvehicletype",controller.addvehicletype)
 router.post("/deletevehicletype/:id",controller.deletevehicletype)
 
