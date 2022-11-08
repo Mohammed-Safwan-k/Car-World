@@ -36,6 +36,7 @@ router.get("/adminlogout", controller.logout)
 
 router.post("/", controller.adminlogin)
 router.post("/addproduct", controller.addproduct)
+router.post("/deleteproduct/:id",controller.deleteproduct)
 
 router.post("/adduser", controller.adduser)
 router.post("/unblockUser/:id",controller.unblockUser)

@@ -214,6 +214,13 @@ module.exports = {
 
     },
 
+    // Delete Product
+    deleteproduct: async (req,res) => {
+        let id = req.params.id;
+        await ProductModel.findByIdAndDelete({_id:id});
+        res.redirect("/admin/allproduct")
+    },
+
 
     //------------------------------------------------------------------------------------------------------------------
     // BRAND

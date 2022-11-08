@@ -29,6 +29,8 @@ app.use(cookieParser());
 // app.use('/images', express.static(path.join(__dirname, 'images')))
 // app.use(multer({dest: 'images'}).single('image'))
 
+
+
 // Multer (file upload setup)
 const storage = multer.diskStorage({
     destination: (req,file,cb) => {
@@ -41,6 +43,8 @@ const storage = multer.diskStorage({
 });
 // const upload = multer({ storage: storage})
 app.use(multer({storage: storage}).single("image"))
+
+
 
 
 //session

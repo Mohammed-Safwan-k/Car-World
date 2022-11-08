@@ -69,23 +69,6 @@ module.exports = {
 
   //signin
   login: async (req, res) => {
-    // const useremail = req.body.email;
-    // const password = req.body.password;
-    // UserModel.findOne({ $and: [{ email: useremail }, { type: 'user' }] }, (err, foundUser) => {
-    //   if (err) console.log(err);
-    //   if (!foundUser) {
-    //     res.redirect("/signin");
-    //   } else {
-    //     bcrypt.compare(password, foundUser.password, (err, isMatch) => {
-    //       if (err) throw err;
-    //       if (isMatch) {
-    //         res.redirect("/");
-    //       } else {
-    //         res.redirect("/signin");
-    //       }
-    //     });
-    //   }
-    // });
     const { email, password } = req.body;
     const user = await UserModel.findOne({$and:[{email : email}, { status : "Unblocked"}] });
     if (!user) {

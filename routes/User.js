@@ -6,6 +6,13 @@ const router = express.Router()
 const controller = require('../controllers/userController')
 const { auth } = require('../middleware/auth')
 
+
+
+
+
+
+
+
 //-------------------------------------------------------------------------------------------------
 //get 
 router.get('/', controller.home)
