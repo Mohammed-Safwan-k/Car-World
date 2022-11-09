@@ -100,11 +100,11 @@ module.exports = {
                 newUser
                     .save()
                     .then(() => {
-                        res.redirect("/admin/adminhome");
+                        res.redirect("/admin/alluser");
                     })
                     .catch((err) => {
                         console.log(err);
-                        res.redirect("/admin/adminhome")
+                        res.redirect("/admin/alluser")
                     })
             })
         })

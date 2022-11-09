@@ -1,3 +1,6 @@
+
+const dotenv = require('dotenv').config();
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
@@ -5,8 +8,18 @@ const mongoose = require('./configuration/connection');
 const session = require('express-session');
 const multer = require('multer')
 
+
 const homeRoute = require("./routes/User");
 const adminRoute = require("./routes/Admin");
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,60 +1,49 @@
 
 
-<html lang="en">
-    <head >
-        <title style="color: brown">LOGIN</title>
-        <meta name="author" content="Zaur">
-        <meta descryption content="Presentation of website">
-        <meta name="keywords" content="technology, cyber security, software">
-        <meta http-equiv="refresh" content="100">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="/stylesheets/user/signinstyle/style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-		<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    </head>
-    <body>
-		<div class="container forms" id="container">
-			
-			<div class="form sign-in">
-				<form method="post" action="/admin/adduser">
-					<div class="header">Add User</div>
 
-					
-                    <div class="group input-group">
-                        <input type="text" placeholder="Full Name" required name="fullName">
-                    </div>
-                    <div class="group input-group">
-                        <input type="text" placeholder="User Name" required name="userName">
-                    </div>
-                    <div class="group input-group">
-                        <input type="email" placeholder="Email" required name="email">
-                    </div>
-                    <div class="group input-group">
-                        <input type="number" placeholder="Phone" required name="phone">
-                    </div>
-                    <div class="group input-group">
-                        <input type="password" placeholder="Password" required pattern=".{8,}" name="password">
-                    </div>
-                    <div class="alert-text signup__alert">
-                        <span class="help__text">At least 8 character</span>
-                    </div>
-					
-					<div class="group button-group">
-						<button type="submit" class="signup-btn">
-							<span>Add User</span>
-						</button>
-					</div>
-				</div>
-				</form>
-			</div>
-			
-			
-			
-		</div>
-		
-		
-		
-		<script src="./javascripts/user/signinjs/sample.js"></script>
-    </body>
-</html>
+<%-include('../admin/layout/admin-header-layout.ejs') -%>
+
+<div class="col-lg">
+  <div class="card">
+    <div class="card-body">
+    <div class="card-title">Add User</div>
+    <hr>
+     <form action="/admin/adduser" method="post">
+
+    <div class="form-group">
+     <label for="input-4">Full Name</label>
+     <input class="form-control" id="input-4" type="text" placeholder="Full Name" required name="fullName">
+    </div>
+
+    <div class="form-group">
+     <label for="input-5">User Name</label>
+     <input class="form-control" id="input-5" type="text" placeholder="User Name" required name="userName">
+    </div>
+
+    <div class="form-group">
+        <label for="input-5">Email</label>
+        <input class="form-control" id="input-5" type="email" placeholder="Email" required name="email">
+    </div>
+
+    <div class="form-group">
+        <label for="input-5">Phone Number</label>
+        <input class="form-control" id="input-5" type="tel" placeholder="Phone Number" required name="phone">
+    </div>
+
+    <div class="form-group">
+      <label for="input-5">Password</label>
+      <input class="form-control" id="input-5" type="password" placeholder="Password" required pattern=".{8,}" name="password">
+      <label for="input-5">At least 8 character</label>
+ 
+    </div>
+    
+    <div class="form-group">
+     <button type="submit" class="btn btn-success px-5"> Add User</button>
+   </div>
+   </form>
+  </div>
+  </div>
+</div>
+
+
+<%-include('../admin/layout/admin-footer-layout') -%>

@@ -21,7 +21,7 @@ router.get("/adduserpage", controller.adduserpage)
 
 router.get('/brandpage',controller.brandpage)
 router.get('/vehicletype',controller.vehicletypepage)
-router.get('/fueltypepage',controller.fueltypepage)
+router.get('/fueltype',controller.fueltypepage)
 
 
 
