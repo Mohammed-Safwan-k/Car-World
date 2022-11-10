@@ -50,6 +50,20 @@ module.exports = {
         }
     },
 
+    //edit product page
+    editproductpage: async (req, res) => {
+        if (req.session.adminLogin) {
+            const id = req.params.id
+            const type = await TypeModel.find()
+            const brand = await BrandModel.find()
+            const fuel = await FuelModel.find()
+            let product = await ProductModel.findOne({_id:id}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+            console.log(product)
+            res.render('admin/editProduct', {product ,type, brand, fuel})
+        }
+
+    },
+
 
 
 
@@ -136,20 +150,20 @@ module.exports = {
     // Block and Unblock Users
     blockUser: async (req, res) => {
         const id = req.params.id
-        await UserModel.findByIdAndUpdate({_id:id},{$set:{status:"Blocked"}})
-        .then(() => {
-            res.redirect('/admin/alluser')
-        })
+        await UserModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Blocked" } })
+            .then(() => {
+                res.redirect('/admin/alluser')
+            })
     },
 
 
 
     unblockUser: async (req, res) => {
         const id = req.params.id
-        await UserModel.findByIdAndUpdate({_id:id},{$set:{status:"Unblocked"}})
-        .then(() => {
-            res.redirect('/admin/alluser')
-        })
+        await UserModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Unblocked" } })
+            .then(() => {
+                res.redirect('/admin/alluser')
+            })
     },
 
     //-------------------------------------------------------------------------
@@ -208,17 +222,34 @@ module.exports = {
 
     //view all products
     viewproduct: async (req, res) => {
-        const products = await ProductModel.find({}).populate('type','typeName').populate('brand','brand').populate('fuelType')
+        const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
         console.log(products)
         res.render('admin/viewproduct', { products, index: 1 })
 
     },
 
     // Delete Product
-    deleteproduct: async (req,res) => {
+    deleteproduct: async (req, res) => {
         let id = req.params.id;
-        await ProductModel.findByIdAndDelete({_id:id});
+        await ProductModel.findByIdAndDelete({ _id: id });
         res.redirect("/admin/allproduct")
+    },
+
+    updateProduct: async (req, res) => {
+        const { type, brand, fuelType, productName, discription, price } = req.body;
+        
+        if(req.file) {
+            let image = req.file;
+            await ProductModel.findByIdAndUpdate(
+                {_id:req.params.id}, {$set: {image: image.filename}}
+            );
+        }
+        let details = await ProductModel.findOneAndUpdate(
+            {_id: req.params.id}, {$set: {type, brand, fuelType, productName, discription, price}}
+        );
+        await details.save().then(() => {
+            res.redirect('/admin/allproduct')
+        })
     },
 
 
@@ -279,14 +310,14 @@ module.exports = {
     addfuel: (req, res) => {
         const fuelType = req.body.fuelType;
         const newfuel = FuelModel({ fuelType });
-        newfuel.save().then(res.redirect('/admin/fueltypepage'))
+        newfuel.save().then(res.redirect('/admin/fueltype'))
     },
     // DELETE FUEL TYPE
     deletefueltype: async (req, res) => {
         let id = req.params.id;
         // console.log("delete")
         await FuelModel.findByIdAndDelete({ _id: id });
-        res.redirect("/admin/fueltypepage")
+        res.redirect("/admin/fueltype")
     },
 
 

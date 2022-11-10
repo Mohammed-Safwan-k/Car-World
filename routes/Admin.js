@@ -18,6 +18,7 @@ router.get("/allproduct", controller.viewproduct)
 //get add product page
 router.get("/addproductpage", controller.addproductpage)
 router.get("/adduserpage", controller.adduserpage)
+router.get("/editproductpage/:id", controller.editproductpage)
 
 router.get('/brandpage',controller.brandpage)
 router.get('/vehicletype',controller.vehicletypepage)
@@ -37,6 +38,7 @@ router.get("/adminlogout", controller.logout)
 router.post("/", controller.adminlogin)
 router.post("/addproduct", controller.addproduct)
 router.post("/deleteproduct/:id",controller.deleteproduct)
+router.post("/updateProduct/:id",controller.updateProduct)
 
 router.post("/adduser", controller.adduser)
 router.post("/unblockUser/:id",controller.unblockUser)

@@ -4,8 +4,7 @@ const productSchema = new mongoose.Schema({
     type : {
         type: Objectid,
         required: true,
-        ref:"VehicleData"
-        
+        ref:"VehicleData"  
     },
     brand : {
         type: Objectid,

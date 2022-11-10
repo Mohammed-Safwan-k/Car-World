@@ -1,6 +1,4 @@
 
-const dotenv = require('dotenv').config();
-
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const path = require('path');
@@ -11,15 +9,6 @@ const multer = require('multer')
 
 const homeRoute = require("./routes/User");
 const adminRoute = require("./routes/Admin");
-
-
-
-
-
-
-
-
-
 
 
 

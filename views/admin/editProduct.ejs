@@ -1,0 +1,90 @@
+
+
+
+<%-include('../admin/layout/admin-header-layout.ejs') -%>
+    <div class="col-lg">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">Add Car</div>
+                <hr>
+                <form action="/admin/updateProduct/<%= product._id %>" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="input-1">Vehicle Type</label>
+                        <select class="group input-group form-control" name="type" id="">
+                            <% type.forEach(function(x){ %>
+                            <% if (x.typeName==product.type.typeName){ %>
+                            <option selected value="<%= x._id %>"> <%= x.typeName %> </option>
+                            <% } else { %>
+                            <option value="<%= x._id %>"> <%= x.typeName %> </option>
+                            <% } %>
+                            <% }) %>
+                        </select>
+                        <!-- <input type="text" class="form-control" id="input-1" placeholder="Enter Your Name"> -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-2">Brand</label>
+                        <select class="group input-group form-control" name="brand" id="">
+                            <% brand.forEach(function(x){ %>
+                                <% if (x.brand==product.brand.brand){ %>
+                                <option selected value="<%= x._id %>"> <%= x.brand %> </option>
+                                <% } else { %>
+                                <option value="<%= x._id %>"> <%= x.brand %> </option>
+                                <% } %>
+                                <% }) %>
+                        </select>
+                        <!-- <input type="text" class="form-control" id="input-2" placeholder="Enter Your Email Address"> -->
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="input-3">Fuel Type</label>
+                        <select class="group input-group form-control" name="fuelType" id="">
+                            <% fuel.forEach(function(x){ %>
+                                <% if (x.fuelType==product.fuelType.fuelType){ %>
+                                <option selected value="<%= x._id %>"> <%= x.fuelType %> </option>
+                                <% } else { %>
+                                <option value="<%= x?._id %>"> <%= x?.fuelType %> </option>
+                                <% } %>
+                                <% }) %>
+                        </select>
+                        <!-- <input type="text" class="form-control" id="input-3" placeholder="Enter Your Mobile Number"> -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-4">Model</label>
+                        <input class="form-control" id="input-4" type="text" placeholder="Car Name"
+                            value="<%= product.productName %>" required name="productName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-5">Details</label>
+                        <input class="form-control" id="input-5" type="text" placeholder="Details"
+                            value="<%= product.discription %>" required name="discription">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-5">Price</label>
+                        <input class="form-control" id="input-5" type="tel" placeholder="Price"
+                            value="<%= product.price %>" required name="price">
+                    </div>
+
+                    <div class="form-group">
+                        <img src="/images/<%= product.image %>" alt="" style="width: 300px ; height: 160px ;">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-5">Image</label>
+                        <input type="file" class="form-control" id="input-5" name="image" required
+                            placeholder="Choose an image" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success px-5"> Update Car</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <%-include('../admin/layout/admin-footer-layout.ejs') -%>

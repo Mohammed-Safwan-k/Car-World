@@ -13,6 +13,7 @@
       <select class="group input-group form-control" name="type" id="">
         <option value="" selected >Select Your Vehicle Type</option>
         <% type.forEach(function(type){ %>
+
           <option value="<%= type._id%>">
             <%= type.typeName %>
           </option>

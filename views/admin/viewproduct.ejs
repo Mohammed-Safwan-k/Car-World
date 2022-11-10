@@ -7,7 +7,7 @@
           <h5 class="card-title">Products</h5>
           <div>
             <form action="/admin/addproductpage" method="get">
-              <button class="btn btn-dark me-md-2" type="submit">Add Product</button>
+              <button class="btn btn-success me-md-2" type="submit">Add Product</button>
             </form>
           </div>
 
@@ -54,10 +54,10 @@
                     <%= product.price %>
                   </td>
                   <td><img src='/images/<%= product.image %>' alt="" style="height: 50px; width: 60px;"></td>
-                  <td><a class="btn btn-primary" href="#" role="button" style="width: 100px;">edit</a> <br><br>
+                  <td><a class="btn btn-primary" href="/admin/editproductpage/<%= product._id %>" role="button" style="width: 100px;"><i class="bi bi-pen-fill"></i></a> <br><br>
                     <form action="/admin/deleteproduct/<%= product._id %>" method="post">
                       <button type="submit" class="btn  btn-danger" style="width: 100px;"
-                          onclick="return confirm('Are you sure you want to delete ?')">Delete</button>
+                          onclick="return confirm('Are you sure you want to delete ?')"><i class="bi bi-trash-fill"></i></button>
                   </form>
                     
                   
