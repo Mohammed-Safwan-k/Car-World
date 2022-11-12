@@ -402,37 +402,37 @@ hr {
 }
 
 #theme1 {
-  background-image: url(../images/bg-themes/1.png);
+  background-image: url(../../../images/background/1.png);
   background-size: 100% 100%;
   background-position: center;
   transition: background .3s;
 }
 #theme2 {
-  background-image: url(../images/bg-themes/2.png);
+  background-image: url(../../../images/background/2.png);
   background-size: 100% 100%;
   background-position: center;
   transition: background .3s;
 }
 #theme3 {
-  background-image: url(../images/bg-themes/3.png);
+  background-image: url(../../../images/background/3.png);
   background-size: 100% 100%;
   background-position: center;
   transition: background .3s;
 }
 #theme4 {
-  background-image: url(../images/bg-themes/4.png);
+  background-image: url(../../../images/background/4.png);
   background-size: 100% 100%;
   background-position: center;
   transition: background .3s;
 }
 #theme5 {
-  background-image: url(../images/bg-themes/5.png);
+  background-image: url(../../../images/background/5.png);
   background-size: 100% 100%;
   background-position: center;
   transition: background .3s;
 }
 #theme6 {
-  background-image: url(../images/bg-themes/6.png);
+  background-image: url(../../../images/background/6.png);
   background-size: 100% 100%;
   background-position: center;
   transition: background .3s;
@@ -495,22 +495,22 @@ hr {
 }
 
 body.bg-theme1 {
-  background-image: url(../images/bg-themes/1.png);
+  background-image: url(../../../images/background/1.png);
 }
 body.bg-theme2 {
-  background-image: url(../images/bg-themes/2.png);
+  background-image: url(../../../images/background/2.png);
 }
 body.bg-theme3 {
-  background-image: url(../images/bg-themes/3.png);
+  background-image: url(../../../images/background/3.png);
 }
 body.bg-theme4 {
-  background-image: url(../images/bg-themes/4.png);
+  background-image: url(../../../images/background/4.png);
 } 
 body.bg-theme5 {
-  background-image: url(../images/bg-themes/5.png);
+  background-image: url(../../../images/background/5.png);
 } 
 body.bg-theme6 {
-  background-image: url(../images/bg-themes/6.png);
+  background-image: url(../../../images/background/6.png);
 }
 body.bg-theme7 {
   background-image: linear-gradient(45deg, #0c675e, #069e90);

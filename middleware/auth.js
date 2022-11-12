@@ -1,11 +1,11 @@
- const auth = (req,res,next)=>{
-    if(req.session.userlogin)
-    {
-        next()
-    }
-    else{
-        res.redirect('/')
-    }
-}
+//  const sessioncontrol  userSession : (req,res,next)=>{
+//     if(req.session.userlogin)
+//     {
+//         next()
+//     }
+//     else{
+//         res.redirect('/')
+//     }
+// }
 
-module.exports ={auth}
+// module.exports = userSession

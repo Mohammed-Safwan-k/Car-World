@@ -53,7 +53,7 @@
                   <td>
                     <%= product.price %>
                   </td>
-                  <td><img src='/images/<%= product.image %>' alt="" style="height: 50px; width: 60px;"></td>
+                  <td><img src='/images/car/<%= product.image %>' alt="" style="height: 50px; width: 60px;"></td>
                   <td><a class="btn btn-primary" href="/admin/editproductpage/<%= product._id %>" role="button" style="width: 100px;"><i class="bi bi-pen-fill"></i></a> <br><br>
                     <form action="/admin/deleteproduct/<%= product._id %>" method="post">
                       <button type="submit" class="btn  btn-danger" style="width: 100px;"
