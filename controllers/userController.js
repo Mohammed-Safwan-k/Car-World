@@ -1,4 +1,8 @@
 const UserModel = require("../models/userModel");
+const ProductModel = require("../models/productModel");
+const BrandModel = require("../models/brandModel");
+const TypeModel = require("../models/vehicletypeModel")
+const FuelModel = require('../models/fueltypeModel')
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 
@@ -120,9 +124,8 @@ module.exports = {
 
 
   verifyotp: (req, res) => {
-    const { a, b, c } = req.body
-    const OTP = a + b + c
-    if (OTP == otp) {
+    
+    if (req.body.otp == otp) {
       // res.send("You has been successfully registered");
 
       const newUser = UserModel(
@@ -169,6 +172,13 @@ module.exports = {
       console.log(products)
       res.render('user/allProducts', { login: true, user: req.session.user , products })
     
+  },
+
+  singleProductpage: async (req, res) => {
+
+    const product = await ProductModel.findById({_id: req.params.id}).populate('type').populate('brand').populate('fuelType')
+    console.log(product);
+    res.render('user/singleProduct', {login: true, user: req.session.user, product})
   },
 
 
