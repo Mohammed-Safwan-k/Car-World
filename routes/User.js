@@ -33,6 +33,8 @@ router.post('/otp',controller.otp)
 router.post('/resendotp',controller.resendotp)
 router.post('/verifyotp',controller.verifyotp)
 
+router.post('/addToWishlist/:productId',controller.addtowishlist)
+
 
 
 

@@ -29,14 +29,14 @@
                             </figure>
                         </div>
                     </div>
-                    <!-- <div class="item">
+                     <div class="item">
                         <div class="active text-center">
                             <figure>
-                                <img src="images/product-single-2.jpg" alt="user">
+                                <img src="/images/car/<%= product.image %>" alt="user">
                             </figure>
                         </div>
                     </div>
-                    <div class="item">
+                   <!-- <div class="item">
                         <div class="active text-center">
                             <figure>
                                 <img src="images/product-single-3.jpg" alt="user">
@@ -62,8 +62,16 @@
                     <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
                         <h2><%= product.brand.brand %> <%= product.productName %></h2>
                         <p>
-                            <a href="#" class="btn btn-primary btn-outline btn-lg">Add to Cart</a>
-                            <!-- <a href="#" class="btn btn-primary btn-outline btn-lg">Compare</a> -->
+                            <div style="display: flex; justify-content: center;">
+
+                                <form action="/admin/unblockUser/<%= user._id %> " method="post">
+                                    <button type="submit" class="btn btn-primary btn-outline btn-lg" style="width: 200px;">Add to Cart</button>
+                                </form>
+                                <form action="/addToWishlist/<%= product._id %> " method="post">
+                                    <button type="submit" class="btn btn-primary btn-outline btn-lg" style="width: 200px;"> Add to WishList</button>
+                                </form>
+
+                            </div>
                         </p>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ const ProductModel = require("../models/productModel");
 const BrandModel = require("../models/brandModel");
 const TypeModel = require("../models/vehicletypeModel")
 const FuelModel = require('../models/fueltypeModel')
+const Wishlist = require('../models/wishlistModel')
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 
@@ -41,8 +42,7 @@ console.log(otp);
 
 
 module.exports = {
-  //-------------------------------------------------------------------------------------------------
-  // RENDING PAGES
+
 
 
 
@@ -166,6 +166,27 @@ module.exports = {
   //***************************************** END SIGNUP USER ****************************************/
 
 
+    //signin
+    login: async (req, res) => {
+      const { email, password } = req.body;
+      const user = await UserModel.findOne({ $and: [{ email: email }, { status: "Unblocked" }] });
+      if (!user) {
+        return res.redirect('/signin');
+      }
+  
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.redirect('/signin');
+      }
+      req.session.user = user.userName
+      req.session.userLogin = true;
+      res.render('user/home', { login: true, user: user.userName });
+    },
+  
+  
+
+
+
   allproductpage: async (req, res) => {
     
       const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
@@ -182,6 +203,25 @@ module.exports = {
   },
 
 
+  addtowishlist: async (req, res) => {
+    let productId = req.params.productId
+    let userId = req.session.user._id   //user id
+    let wishlist = await Wishlist.findOne({userId})
+    
+    if (wishlist) {
+      await Wishlist.findOneAndUpdate({ userId: userId}, { $addToSet: {productIds: productId}})
+      res.redirect('/allproductpage')
+    } 
+    else {
+      const newwishlist = new Wishlist({userId, productIds: [productId]})
+      newwishlist.save()
+      .then(()=>{
+        res.redirect('/allproductpage')
+      })
+    }
+
+
+  },
 
 
 
@@ -194,8 +234,9 @@ module.exports = {
 
 
 
-  //-------------------------------------------------------------------------------------------------
-  // REDIRECTING PAGES
+
+
+
 
 
 
@@ -230,23 +271,6 @@ module.exports = {
   //     })
   //   })
   // },
-
-  //signin
-  login: async (req, res) => {
-    const { email, password } = req.body;
-    const user = await UserModel.findOne({ $and: [{ email: email }, { status: "Unblocked" }] });
-    if (!user) {
-      return res.redirect('/signin');
-    }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.redirect('/signin');
-    }
-    req.session.user = user.userName
-    req.session.userLogin = true;
-    res.render('user/home', { login: true, user: user.userName });
-  },
 
 
 

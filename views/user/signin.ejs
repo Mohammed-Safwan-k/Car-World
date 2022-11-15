@@ -24,16 +24,16 @@
 					
 					<div class="button-input-group">
 						<div class="group input-group">
-							<input type="text" placeholder="Full Name" required name="fullName">
+							<input type="text" placeholder="Full Name" required pattern="[A-Za-z]{3,22}" name="fullName">
 						</div>
 						<div class="group input-group">
-							<input type="text" placeholder="User Name" required name="userName">
+							<input type="text" placeholder="User Name" required pattern="[A-Za-z]{3,22}" name="userName">
 						</div>
 						<div class="group input-group">
-							<input type="email" placeholder="Email" required name="email">
+							<input type="email" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email">
 						</div>
 						<div class="group input-group">
-							<input type="tel" placeholder="Phone" required name="phone">
+							<input type="tel" placeholder="Phone" required pattern="[7896][0-9]{9}" name="phone">
 						</div>
 						<div class="group input-group">
 							<input type="password" placeholder="Password" required pattern=".{8,}" name="password">
@@ -42,7 +42,7 @@
 							<span class="help__text">At least 8 character</span>
 						</div>
 						<div class="group button-group">
-							<button type="submit" class="signup-btn">
+							<button type="submit"  class="signup-btn">
 								<span>Sign Up</span>
 							</button>
 						</div>
@@ -50,6 +50,11 @@
 					
 				</form>
 			</div>
+			<!-- <script>
+				document.getElementById("sweet").addEventListener("click",function(){
+					Swal.fire('wait for otp')
+				})
+			</script> -->
 			
 			
 			<div class="form sign-in">
@@ -123,7 +128,7 @@
 		<!-- <footer>
 			<p>Inspired by <a href="https://codepen.io/Rittenhouse" target="_blank">Zaur Suleymanlı</a>.</p>
 		</footer> -->
-		
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script src="./javascripts/user/signinjs/sample.js"></script>
     </body>
 </html>
