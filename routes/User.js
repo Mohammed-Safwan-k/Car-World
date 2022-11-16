@@ -19,9 +19,11 @@ router.get('/', controller.home)
 router.get('/signin', controller.signin)
 router.get('/allproductpage',controller.allproductpage)
 router.get('/singleProduct/:id',controller.singleProductpage)
+router.get('/wishlist',controller.wishlist)
 
 
 router.get('/logout',controller.logout)
+
 
 
 //-------------------------------------------------------------------------------------------------

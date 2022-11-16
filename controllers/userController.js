@@ -124,7 +124,7 @@ module.exports = {
 
 
   verifyotp: (req, res) => {
-    
+
     if (req.body.otp == otp) {
       // res.send("You has been successfully registered");
 
@@ -166,63 +166,81 @@ module.exports = {
   //***************************************** END SIGNUP USER ****************************************/
 
 
-    //signin
-    login: async (req, res) => {
-      const { email, password } = req.body;
-      const user = await UserModel.findOne({ $and: [{ email: email }, { status: "Unblocked" }] });
-      if (!user) {
-        return res.redirect('/signin');
-      }
-  
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.redirect('/signin');
-      }
-      req.session.user = user.userName
-      req.session.userLogin = true;
-      res.render('user/home', { login: true, user: user.userName });
-    },
-  
-  
+  //signin
+  login: async (req, res) => {
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({ $and: [{ email: email }, { status: "Unblocked" }] });
+    if (!user) {
+      return res.redirect('/signin');
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.redirect('/signin');
+    }
+    req.session.user = user.userName
+    req.session.userId = user._id
+    req.session.userLogin = true;
+    res.render('user/home', { login: true, user: user.userName });
+  },
 
 
-
+  // All Product
   allproductpage: async (req, res) => {
-    
-      const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
-      console.log(products)
-      res.render('user/allProducts', { login: true, user: req.session.user , products })
-    
+    const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+    console.log(products)
+    res.render('user/allProducts', { login: true, user: req.session.user, products })
+
   },
 
+
+  // Single Product
   singleProductpage: async (req, res) => {
-
-    const product = await ProductModel.findById({_id: req.params.id}).populate('type').populate('brand').populate('fuelType')
+    const product = await ProductModel.findById({ _id: req.params.id }).populate('type').populate('brand').populate('fuelType')
     console.log(product);
-    res.render('user/singleProduct', {login: true, user: req.session.user, product})
+    res.render('user/singleProduct', { login: true, user: req.session.user, product })
   },
 
 
+  // Add to Wishlist
   addtowishlist: async (req, res) => {
     let productId = req.params.productId
-    let userId = req.session.user._id   //user id
-    let wishlist = await Wishlist.findOne({userId})
-    
+    let userId = req.session.userId   //user id
+    let wishlist = await Wishlist.findOne({ userId })
+
     if (wishlist) {
-      await Wishlist.findOneAndUpdate({ userId: userId}, { $addToSet: {productIds: productId}})
+      await Wishlist.findOneAndUpdate({ userId: userId }, { $addToSet: { productIds: productId } })
       res.redirect('/allproductpage')
-    } 
+    }
     else {
-      const newwishlist = new Wishlist({userId, productIds: [productId]})
+      const newwishlist = new Wishlist({ userId, productIds: [productId] })
       newwishlist.save()
-      .then(()=>{
-        res.redirect('/allproductpage')
-      })
+        .then(() => {
+          res.redirect('/allproductpage')
+        })
     }
 
 
   },
 
+
+  // Wishlist Page
+  wishlist: async (req, res) => {
+    
+    let userId = req.session.userId;
+    console.log(userId)
+    let list = await Wishlist.findOne({ userId: userId }).populate('productIds').populate('productIds.$.brand')
+    console.log(list)
+    if(list){
+      let wish = list.productIds
+      if (req.session.userLogin) {
+        res.render("user/wishlist", {login: true, user: req.session.user, wish, index:1})
+      }else {
+        res.redirect('/signin')
+      }
+    }
+
+  },
 
 
 

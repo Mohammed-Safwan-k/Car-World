@@ -1,0 +1,87 @@
+
+
+
+
+
+<%- include('../user/layout/user-header-layout.ejs') -%>
+
+
+
+
+
+
+
+
+    <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Wishlist</h5>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Car Name</th>
+                    <th scope="col">FUEL TYPE</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">OPTIONS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% wish.forEach(function(x) { %>
+                        <tr>
+                            <th scope="row">
+                              <%= index++ %>
+                            </th>
+                            <td>
+                              <%= x.type %>
+                            </td>
+                            <td>
+                              <%= x.brand %>
+                            </td>
+                            <td>
+                              <%= x.productName %>
+                            </td>
+                            <td>
+                              <%= x.fuelType %>
+                            </td>
+                            <td>
+                             RS: <%= x.price %>
+                            </td>
+                            <td><img src='/images/car/<%= x.image %>' alt="" style="height: 50px; width: 60px;"></td>
+                            <td><a class="btn btn-primary" href="/admin/editproductpage/<%= x._id %>" role="button" style="width: 100px;"><i class="bi bi-pen-fill"></i></a> <br><br>
+                              <form action="/admin/deleteproduct/<%= x._id %>" method="post">
+                                <button type="submit" class="btn  btn-danger" style="width: 100px;"
+                                    onclick="return confirm('Are you sure you want to delete ?')"><i class="bi bi-trash-fill"></i></button>
+                            </form>
+                              
+                            
+                            </td>
+          
+                          </tr>
+                  <% }) %>
+
+                
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+	
+
+    <%- include('../user/layout/user-footer-layout.ejs') -%>

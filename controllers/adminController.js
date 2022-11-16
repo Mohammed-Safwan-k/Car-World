@@ -156,8 +156,6 @@ module.exports = {
             })
     },
 
-
-
     unblockUser: async (req, res) => {
         const id = req.params.id
         await UserModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Unblocked" } })
@@ -235,6 +233,7 @@ module.exports = {
         res.redirect("/admin/allproduct")
     },
 
+    // Update Product
     updateProduct: async (req, res) => {
         const { type, brand, fuelType, productName, discription, price } = req.body;
         

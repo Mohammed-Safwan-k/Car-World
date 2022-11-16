@@ -1,12 +1,14 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
+
+<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Shop &mdash; Free Website Template, Free HTML5 Template by gettemplates.co</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Website Template by gettemplates.co" />
-	<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+	<meta name="keywords"
+		content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
 	<meta name="author" content="gettemplates.co" />
 
 	<!-- 
@@ -23,12 +25,12 @@
 	//////////////////////////////////////////////////////
 	 -->
 
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
+	<!-- Facebook and Twitter integration -->
+	<meta property="og:title" content="" />
+	<meta property="og:image" content="" />
+	<meta property="og:url" content="" />
+	<meta property="og:site_name" content="" />
+	<meta property="og:description" content="" />
 	<meta name="twitter:title" content="" />
 	<meta name="twitter:image" content="" />
 	<meta name="twitter:url" content="" />
@@ -36,7 +38,7 @@
 
 	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
 	<!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i" rel="stylesheet"> -->
-	
+
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="/stylesheets/user/homestyle/animate.css">
 	<!-- Icomoon Icon Fonts-->
@@ -61,73 +63,85 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
-	</head>
-	<body>
-		
+
+	<!-- wishlist css -->
+	<link rel="stylesheet" href="/stylesheets/user/wishliststyle/style.css">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
 	<div class="fh5co-loader"></div>
-	
+
 	<div id="page">
-	<nav class="fh5co-nav" role="navigation">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-3 col-xs-2">
-					<div id="fh5co-logo"><a href="index.html">Car World.</a></div>
-				</div>
-				<div class="col-md-6 col-xs-6 text-center menu-1">
-					<ul>
-						<li class="has-dropdown active">
-							<a href="/allproductpage">Shop</a>
-							<!-- <ul class="dropdown">
+		<nav class="fh5co-nav" role="navigation">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-3 col-xs-2">
+						<div id="fh5co-logo"><a href="index.html">Car World.</a></div>
+					</div>
+					<div class="col-md-6 col-xs-6 text-center menu-1">
+						<ul>
+							<li class="has-dropdown active">
+								<a href="/allproductpage">Shop</a>
+								<!-- <ul class="dropdown">
 								<li><a href="single.html">Single Shop</a></li>
 							</ul> -->
-						</li>
-						<li><a href="about.html">About</a></li>
-						<li class="has-dropdown">
-							<a href="services.html">Services</a>
-							<ul class="dropdown">
-								<li><a href="#">Web Design</a></li>
-								<li><a href="#">eCommerce</a></li>
-								<li><a href="#">Branding</a></li>
-								<li><a href="#">API</a></li>
-							</ul>
-						</li>
-						<li><a href="contact.html">Contact</a></li>
-                        <% if(login){ %>
-                        <li class="shopping-cart"><a href="#" class="cart"><span><i class="icon-shopping-cart"></i></span></a></li>
-                        <li class="shopping-cart"><a href="#" class="cart"><span></span><i class="bi bi-heart-fill"></i></span></a></li>
-                        <% } %>
-					</ul>
-				</div>
-				<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
-					<ul>
-						<li class="search">
-							<div class="input-group">
-						      <input type="text" placeholder="Search..">
-						      <span class="input-group-btn">
-						        <button class="btn btn-primary" type="button"><i class="icon-search"></i></button>
-						      </span>
-						    </div>
-						</li>
-						<li class=" has-dropdown shopping-cart">
-                            <a href="#" class="cart"><span><i class="bi bi-person-fill"></i></span></a>
-							<ul class="dropdown">
-								<% if(!login) { %>
-									<li><a href="/signin">Login</a></li>
+							</li>
+							<li><a href="about.html">About</a></li>
+							<li class="has-dropdown">
+								<a href="services.html">Services</a>
+								<ul class="dropdown">
+									<li><a href="#">Web Design</a></li>
+									<li><a href="#">eCommerce</a></li>
+									<li><a href="#">Branding</a></li>
+									<li><a href="#">API</a></li>
+								</ul>
+							</li>
+							<li><a href="contact.html">Contact</a></li>
+							<% if(login){ %>
+								<li class="shopping-cart"><a href="#" class="cart"><span><i
+												class="icon-shopping-cart"></i></span></a></li>
+								<li class="shopping-cart"><a href="/wishlist" class="cart"><span><i
+												class="bi bi-heart-fill"></i></span></a></li>
 								<% } %>
+						</ul>
+					</div>
+					<div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
+						<ul>
+							<li class="search">
+								<div class="input-group">
+									<input type="text" placeholder="Search..">
+									<span class="input-group-btn">
+										<button class="btn btn-primary" type="button"><i
+												class="icon-search"></i></button>
+									</span>
+								</div>
+							</li>
+							<li class=" has-dropdown shopping-cart">
+								<a href="#" class="cart"><span><i class="bi bi-person-fill"></i></span></a>
+								<ul class="dropdown">
+									<% if(!login) { %>
+										<li><a href="/signin">Login</a></li>
+										<% } %>
 
-								<% if(login) { %>
-									<li><a href=""><%= user %></a></li>
-									<li><a href="/logout">Logout</a></li>	
+											<% if(login) { %>
+												<li><a href="">
+														<%= user %>
+													</a></li>
+												<li><a href="/logout">Logout</a></li>
 
-								<% } %>
-							</ul>
-                        
-                        </li>
-					</ul>
+												<% } %>
+								</ul>
+
+							</li>
+						</ul>
+					</div>
 				</div>
+
 			</div>
-			
-		</div>
-	</nav>
+		</nav>
