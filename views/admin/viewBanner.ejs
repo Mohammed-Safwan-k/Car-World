@@ -1,0 +1,59 @@
+<%- include('../admin/layout/admin-header-layout.ejs') -%>
+
+  <div class="col-lg">
+    <div class="card">
+      <div class="card-body ">
+        <div style="display: flex; justify-content: space-between;">
+          <h5 class="card-title">Banner</h5>
+          <div>
+            <form action="/admin/addBannerPage" method="get">
+              <button class="btn btn-success me-md-2" type="submit">Add Banner</button>
+            </form>
+          </div>
+
+        </div>
+        <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div> -->
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Banner Name</th>
+                <th scope="col">Details</th>
+                <th scope="col">Image</th>
+                <th scope="col">OPTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% banners.forEach(function(banner){ %>
+                <tr>
+                  <th scope="row">
+                    <%= index++ %>
+                  </th>
+                  <td>
+                    <%= banner.bannerName %>
+                  </td>
+                  <td>
+                    <%= banner.discription %>
+                  </td>
+                  <td><img src='/images/car/<%= banner.image %>' alt="" style="height: 50px; width: 60px;"></td>
+                  <td><a class="btn btn-primary" href="/admin/editproductpage/<%= banner._id %>" role="button" style="width: 100px;"><i class="bi bi-pen-fill"></i></a> <br><br>
+                    <form action="/admin/deleteproduct/<%= banner._id %>" method="post">
+                      <button type="submit" class="btn  btn-danger" style="width: 100px;"
+                          onclick="return confirm('Are you sure you want to delete ?')"><i class="bi bi-trash-fill"></i></button>
+                  </form>
+                    
+                  
+                  </td>
+
+                </tr>
+                <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('../admin/layout/admin-footer-layout.ejs') -%>

@@ -1,39 +1,45 @@
 const mongoose = require('mongoose');
 const Objectid = mongoose.Types.ObjectId
 const productSchema = new mongoose.Schema({
-    type : {
+    type: {
         type: Objectid,
         required: true,
-        ref:"VehicleData"  
+        ref: "VehicleData"
     },
-    brand : {
+    brand: {
         type: Objectid,
         required: true,
-        ref:"BrandData"
+        ref: "BrandData"
     },
-    fuelType : {
+    fuelType: {
         type: Objectid,
         required: true,
-        ref:"FuelData"
+        ref: "FuelData"
     },
-    productName : {
+    productName: {
         type: String,
         required: true,
     },
-    discription : {
+    discription: {
         type: String,
         required: true
     },
-    price : {
+    price: {
         type: Number,
         required: true
     },
     image: {
         type: String,
         required: true
-    }
+    },
+    status: {
+        type: String,
+        default: 'Unblocked'
+    },
     
+
+
 
 })
 
-module.exports = ProductModel = mongoose.model('ProductData',productSchema);
+module.exports = ProductModel = mongoose.model('ProductData', productSchema);

@@ -31,27 +31,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <% wish.forEach(function(x) { %>
+                    <% list.forEach(function(x) { %>
                         <tr>
                             <th scope="row">
                               <%= index++ %>
                             </th>
                             <td>
-                              <%= x.type %>
+                              <%= x.result.type.typeName %>
                             </td>
                             <td>
-                              <%= x.brand %>
+                              <%= x.result.brand.brand %>
                             </td>
                             <td>
-                              <%= x.productName %>
+                              <%= x.result.productName %>
                             </td>
                             <td>
-                              <%= x.fuelType %>
+                              <%= x.result.fuelType.fuelType %>
                             </td>
                             <td>
-                             RS: <%= x.price %>
+                             RS: <%= x.result.price %>
                             </td>
-                            <td><img src='/images/car/<%= x.image %>' alt="" style="height: 50px; width: 60px;"></td>
+                            <td><img src='/images/car/<%= x.result.image %>' alt="" style="height: 50px; width: 60px;"></td>
                             <td><a class="btn btn-primary" href="/admin/editproductpage/<%= x._id %>" role="button" style="width: 100px;"><i class="bi bi-pen-fill"></i></a> <br><br>
                               <form action="/admin/deleteproduct/<%= x._id %>" method="post">
                                 <button type="submit" class="btn  btn-danger" style="width: 100px;"
@@ -71,7 +71,8 @@
           </div>
         </div>
       </div>
-
+  
+      
 
 
 

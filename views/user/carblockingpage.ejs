@@ -1,0 +1,67 @@
+<%-include('../user/layout/user-header-layout.ejs') -%>
+
+
+
+    <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner"
+        style="background-image:url('https://cdn.eso.org/images/thumb300y/eso1907a.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="display-t">
+                        <div class="display-tc animate-box" data-animate-effect="fadeIn">
+                            <h1>Agreement</h1>
+                            <h2>Reed the form carefully and proceed to payment if You Agree to the Terms and Conditions
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div id="fh5co-about">
+        <div class="container">
+            <div class="about-content">
+                <div class="row animate-box">
+                    <div class="col-md-12" style="text-align: center; font-size: 20px; ">
+                        <div class="desc">
+                            <p style="font-size: 40px; text-transform: uppercase; font-weight: bolder;">Advance Payment
+                                Rule</p>
+                            <hr>
+                            <p>We allow customers to block the car that they wanted to buy for maximum of Three days
+                                only. </p>
+                            <p> If the customer failed to buy the product within three days we will make the product on
+                                live and the advance amount that the user paid will not be refunded.</p>
+                        </div>
+                        <div class="desc">
+                            <p style="font-size: 40px; text-transform: uppercase; font-weight: bolder;"> Payment Details
+                            </p>
+                            <p>The customers are directed to pay 10% of the amount of the vehicle that they wish to
+                                purchase.</p>
+                            <p>Note that payment will not be refunded if the customer fails to purchase the product
+                                before 3 days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   
+            <div class="card-body" style="display: flex; justify-content: space-around;">
+                <form action="/blockCar/<%= id %>" method="post">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-round px-5" style="width: 200px; height: 50px;"><i class="icon-lock"></i>
+                            Proceed To Payment</button>
+                    </div>
+                </form>
+            </div>
+
+
+
+
+
+    <%-include('../user/layout/user-footer-layout.ejs') -%>

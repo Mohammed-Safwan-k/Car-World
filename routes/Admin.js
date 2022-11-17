@@ -12,10 +12,12 @@ const controller = require('../controllers/adminController')
 router.get("/", controller.admin)
 router.get("/adminhome", controller.home)
 
+//  GET All page
 router.get("/alluser", controller.alluser)
 router.get("/allproduct", controller.viewproduct)
+router.get('/allBanner',controller.allBanner)
 
-//get add product page
+// GET ADD page
 router.get("/addproductpage", controller.addproductpage)
 router.get("/adduserpage", controller.adduserpage)
 router.get("/editproductpage/:id", controller.editproductpage)
@@ -23,6 +25,11 @@ router.get("/editproductpage/:id", controller.editproductpage)
 router.get('/brandpage',controller.brandpage)
 router.get('/vehicletype',controller.vehicletypepage)
 router.get('/fueltype',controller.fueltypepage)
+
+router.get("/addBannerPage", controller.addBannerPage)
+
+
+
 
 
 
@@ -52,6 +59,10 @@ router.post("/deletevehicletype/:id",controller.deletevehicletype)
 
 router.post("/addfueltype",controller.addfuel)
 router.post("/deletefueltype/:id",controller.deletefueltype)
+
+router.post("/addBanner",controller.addBanner)
+
+
 
 
 

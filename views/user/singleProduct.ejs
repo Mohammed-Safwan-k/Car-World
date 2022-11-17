@@ -63,10 +63,15 @@
                         <h2><%= product.brand.brand %> <%= product.productName %></h2>
                         <p>
                             <div style="display: flex; justify-content: center;">
-
-                                <form action="/admin/unblockUser/<%= product._id %> " method="post">
-                                    <button type="submit" class="btn btn-primary btn-outline btn-lg" style="width: 200px;">Add to Cart</button>
-                                </form>
+                                <% if(product.status == "Unblocked") { %>
+                                    <form action="/carblockingpage/<%= product._id %> " method="get">
+                                        <button type="submit" class="btn btn-success btn-outline btn-lg" style="width: 200px;">Block Vehicle</button>
+                                    </form>
+                                <% } else { %>
+                                    <form action="" method="get">
+                                        <button type="submit" class="btn btn-Danger btn-outline btn-lg" style="width: 200px;">In Blocked</button>
+                                    </form>
+                                <% } %>
                                 <form action="/addToWishlist/<%= product._id %> " method="post">
                                     <button type="submit" class="btn btn-primary btn-outline btn-lg" style="width: 200px;"> Add to WishList</button>
                                 </form>

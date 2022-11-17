@@ -4,6 +4,7 @@ const ProductModel = require("../models/productModel");
 const BrandModel = require("../models/brandModel");
 const TypeModel = require("../models/vehicletypeModel")
 const FuelModel = require('../models/fueltypeModel')
+const BannerModel = require("../models/bannerModel")
 
 const bcrypt = require("bcrypt");
 
@@ -31,47 +32,9 @@ module.exports = {
         }
     },
 
-    //add user page
-    adduserpage: (req, res) => {
-        if (req.session.adminLogin) {
-            res.render('admin/adduser')
-        }
-    },
-
-    //add product page
-    addproductpage: async (req, res) => {
-        if (req.session.adminLogin) {
-            const type = await TypeModel.find()
-            const brand = await BrandModel.find()
-            const fuel = await FuelModel.find()
-
-            res.render('admin/addproduct', { type, brand, fuel })
-
-        }
-    },
-
-    //edit product page
-    editproductpage: async (req, res) => {
-        if (req.session.adminLogin) {
-            const id = req.params.id
-            const type = await TypeModel.find()
-            const brand = await BrandModel.find()
-            const fuel = await FuelModel.find()
-            let product = await ProductModel.findOne({_id:id}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
-            console.log(product)
-            res.render('admin/editProduct', {product ,type, brand, fuel})
-        }
-
-    },
-
-
-
 
 
     //-------------------------------------------------------------------------------------------------
-    // REDIRECTING PAGES
-
-
 
     //login
     adminlogin: async (req, res) => {
@@ -93,6 +56,13 @@ module.exports = {
 
     //-------------------------------------------------------------------------
     // USER
+
+    //add user page
+    adduserpage: (req, res) => {
+        if (req.session.adminLogin) {
+            res.render('admin/adduser')
+        }
+    },
 
     //add user
     adduser: (req, res) => {
@@ -168,6 +138,33 @@ module.exports = {
     // PRODUCTS
 
 
+    //add product page
+    addproductpage: async (req, res) => {
+        if (req.session.adminLogin) {
+            const type = await TypeModel.find()
+            const brand = await BrandModel.find()
+            const fuel = await FuelModel.find()
+
+            res.render('admin/addproduct', { type, brand, fuel })
+
+        }
+    },
+
+    //edit product page
+    editproductpage: async (req, res) => {
+        if (req.session.adminLogin) {
+            const id = req.params.id
+            const type = await TypeModel.find()
+            const brand = await BrandModel.find()
+            const fuel = await FuelModel.find()
+            let product = await ProductModel.findOne({ _id: id }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+            console.log(product)
+            res.render('admin/editProduct', { product, type, brand, fuel })
+        }
+
+    },
+
+
     //add products
     addproduct: async (req, res) => {
         // const newProduct = ProductModel(req.body);
@@ -236,15 +233,15 @@ module.exports = {
     // Update Product
     updateProduct: async (req, res) => {
         const { type, brand, fuelType, productName, discription, price } = req.body;
-        
-        if(req.file) {
+
+        if (req.file) {
             let image = req.file;
             await ProductModel.findByIdAndUpdate(
-                {_id:req.params.id}, {$set: {image: image.filename}}
+                { _id: req.params.id }, { $set: { image: image.filename } }
             );
         }
         let details = await ProductModel.findOneAndUpdate(
-            {_id: req.params.id}, {$set: {type, brand, fuelType, productName, discription, price}}
+            { _id: req.params.id }, { $set: { type, brand, fuelType, productName, discription, price } }
         );
         await details.save().then(() => {
             res.redirect('/admin/allproduct')
@@ -329,6 +326,47 @@ module.exports = {
 
 
 
+    //******************************************* BANNER START ***********************************************************/
+
+
+    allBanner: async (req, res) => {
+        const banners = await BannerModel.find({})
+        console.log(banners)
+        res.render('admin/viewBanner', { banners, index: 1 })
+    },
+
+    addBannerPage: async (req, res) => {
+        res.render('admin/addBanner')
+    },
+
+    addBanner: async (req, res) => {
+
+        const { bannerName, discription } = req.body
+
+        const image = req.file;
+        console.log(image);
+
+        const newBanner = BannerModel({
+            bannerName,
+            discription,
+            image: image.filename,
+        });
+        console.log(newBanner)
+
+        await newBanner
+        .save()
+        .then(() => {
+            res.redirect("/admin/allBanner");
+        })
+        .catch((err) => {
+            console.log(err.message);
+            res.redirect("/admin/addBannerPage");
+        });
+
+    },
+
+
+    //******************************************* BANNER END ***********************************************************/
 
     //-------------------------------------------------------------------------
     // LOG OUT

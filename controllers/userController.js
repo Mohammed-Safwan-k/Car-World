@@ -6,6 +6,9 @@ const FuelModel = require('../models/fueltypeModel')
 const Wishlist = require('../models/wishlistModel')
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
+const BlockedCarModel = require("../models/blockedCarModel")
+const BannerModel = require("../models/bannerModel")
+
 
 
 //----------------------------------------- START OTP ----------------------------------------------------------
@@ -43,16 +46,26 @@ console.log(otp);
 
 module.exports = {
 
+  // DEMO
+  demo: (req, res) => {
+    res.render('user/carblockingpage',{ login: true, user: req.session.user })
+  },
+
 
 
 
   // User home page
-  home: (req, res) => {
+  home: async (req, res) => {
     // res.send("You just created a User ...!!!");
     if (req.session.userLogin) {
-      res.render("user/home", { login: true, user: req.session.user });
+      const banner = await BannerModel.find()
+      const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').limit(6)
+
+      res.render("user/home", { login: true, user: req.session.user , banner , products});
     } else {
-      res.render('user/home', { login: false });
+      const banner = await BannerModel.find()
+      const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').limit(6)
+      res.render('user/home', { login: false , banner , products});
     }
   },
 
@@ -181,7 +194,7 @@ module.exports = {
     req.session.user = user.userName
     req.session.userId = user._id
     req.session.userLogin = true;
-    res.render('user/home', { login: true, user: user.userName });
+    res.redirect('/');
   },
 
 
@@ -229,18 +242,109 @@ module.exports = {
     
     let userId = req.session.userId;
     console.log(userId)
-    let list = await Wishlist.findOne({ userId: userId }).populate('productIds').populate('productIds.$.brand')
+    // let list = await Wishlist.findOne({ userId: userId }).populate('productIds').populate('productIds.$.brand')
+    let list =await Wishlist.aggregate( [
+      {
+        '$unwind': {
+          'path': '$productIds'
+        }
+      }, {
+        '$lookup': {
+          'from': 'productdatas', 
+          'localField': 'productIds', 
+          'foreignField': '_id', 
+          'as': 'result'
+        }
+      }, {
+        '$unwind': {
+          'path': '$result'
+        }
+      }, {
+        '$lookup': {
+          'from': 'branddatas', 
+          'localField': 'result.brand', 
+          'foreignField': '_id', 
+          'as': 'result.brand'
+        }
+      }, {
+        '$unwind': {
+          'path': '$result.brand'
+        }
+      }, {
+        '$lookup': {
+          'from': 'vehicledatas', 
+          'localField': 'result.type', 
+          'foreignField': '_id', 
+          'as': 'result.type'
+        }
+      }, {
+        '$unwind': {
+          'path': '$result.type'
+        }
+      }, {
+        '$lookup': {
+          'from': 'fueldatas', 
+          'localField': 'result.fuelType', 
+          'foreignField': '_id', 
+          'as': 'result.fuelType'
+        }
+      }, {
+        '$unwind': {
+          'path': '$result.fuelType'
+        }
+      }, {
+        '$project': {
+          'result': 1
+        }
+      }
+    ])
     console.log(list)
     if(list){
-      let wish = list.productIds
+      // let wish = list.productIds
       if (req.session.userLogin) {
-        res.render("user/wishlist", {login: true, user: req.session.user, wish, index:1})
+        res.render("user/wishlist", {login: true, user: req.session.user, list, index:1})
       }else {
         res.redirect('/signin')
       }
     }
 
   },
+
+
+  // Car Blocking Page
+  carblockingpage : (req, res) => {
+    if (req.session.userLogin) {
+    const id = req.params.id;
+    const product = ProductModel.findById({_id: id})
+      res.render('user/carblockingpage',{ login: true, user: req.session.user, product ,id })
+    }
+  },
+
+
+  // Block Car 
+  blockCar: async(req, res) => {
+    const id = req.params.id
+    await UserModel.findOneAndUpdate({ _id:req.session.userId},{ $addToSet: { BookedVehicles: id } })
+    await ProductModel.findByIdAndUpdate({_id : id}, { $set: { status: "Blocked"}})
+    .then(() => {
+      res.redirect('/allproductpage')
+    })
+  },
+
+  // BlockedCarModel: async (req,res) => {
+  //   console.log("reached here");
+  //   const userId = req.session.userId;
+  //   const productId = req.params.id;
+  //   const blockedcar = BlockedCarModel({userId , productId})
+  //   await blockedcar.save()
+  //   .then(()=>{
+  //     console.log("reached next>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+  //     res.redirect('/allproductpage');
+  //   })
+  //   .catch((err)=>{
+  //     console.log(err);
+  //   })
+  // } ,
 
 
 

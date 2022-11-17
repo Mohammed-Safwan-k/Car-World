@@ -25,7 +25,11 @@ const userSchema = new mongoose.Schema({
     status : {
         type: String,
         default: 'Unblocked'
-    }
+    },
+    BookedVehicles:[{
+     type:mongoose.Types.ObjectId,
+     ref:'ProductData'
+    }]
 
 })
 

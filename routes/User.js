@@ -15,11 +15,14 @@ const userSession = require('../middleware/auth')
 
 //-------------------------------------------------------------------------------------------------
 //get 
-router.get('/', controller.home)
+router.get('/',controller.home)
 router.get('/signin', controller.signin)
 router.get('/allproductpage',controller.allproductpage)
 router.get('/singleProduct/:id',controller.singleProductpage)
 router.get('/wishlist',controller.wishlist)
+router.get('/carblockingpage/:id',controller.carblockingpage)
+
+router.get('/demo',controller.demo)
 
 
 router.get('/logout',controller.logout)
@@ -36,7 +39,7 @@ router.post('/resendotp',controller.resendotp)
 router.post('/verifyotp',controller.verifyotp)
 
 router.post('/addToWishlist/:productId',controller.addtowishlist)
-
+router.post('/blockCar/:id',controller.blockCar)
 
 
 
