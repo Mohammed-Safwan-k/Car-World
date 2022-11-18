@@ -1,0 +1,73 @@
+<%- include('../user/layout/user-header-layout.ejs') -%>
+
+
+    <div class="content-wrapper">
+        <div class="container-fluid">
+
+            <div class="row mt-3">
+                <div class="col-lg-8" >
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">Edit Profile</div>
+                            <hr>
+                            <form>
+                                <div class="form-group">
+                                    <label for="input-1">Full Name</label>
+                                    <input type="text" class="form-control" required name="fullName" id="input-1" value="<%= profile.fullName %>" placeholder="Enter Your Full Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-1">User Name</label>
+                                    <input type="text" class="form-control" required name="userName" id="input-1" value="<%= profile.userName %>" placeholder="Enter Your User Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-2">Email</label>
+                                    <input type="email" name="email" required value="<%= profile.email %>" class="form-control" id="input-2"
+                                        placeholder="Enter Your Email Address">
+                                </div>
+                                <div class="form-group">
+                                    <label for="input-3">Mobile</label>
+                                    <input type="text" class="form-control" required value="<%= profile.phone %>" name="phone" id="input-3"
+                                        placeholder="Enter Your Mobile Number">
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label for="input-4">Password</label>
+                                    <input type="text" class="form-control" id="input-4" placeholder="Enter Password">
+                                </div> -->
+                                <!-- <div class="form-group">
+                                    <label for="input-5">Confirm Password</label>
+                                    <input type="text" name="password" class="form-control" id="input-5" placeholder="Confirm Password">
+                                </div> -->
+                                <!-- <div class="form-group py-2">
+                                    <div class="icheck-material-white">
+                                        <input type="checkbox" id="user-checkbox1" checked="" />
+                                        <label for="user-checkbox1">I Agree Terms & Conditions</label>
+                                    </div>
+                                </div> -->
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-light px-5">
+                                        Edit Profile</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--End Row-->
+
+            <!--start overlay-->
+            <div class="overlay toggle-menu"></div>
+            <!--end overlay-->
+
+        </div>
+        <!-- End container-fluid-->
+
+    </div>
+
+
+
+
+
+
+
+    <%- include('../user/layout/user-footer-layout.ejs') -%>

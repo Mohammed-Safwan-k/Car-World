@@ -21,6 +21,8 @@ router.get('/allproductpage',controller.allproductpage)
 router.get('/singleProduct/:id',controller.singleProductpage)
 router.get('/wishlist',controller.wishlist)
 router.get('/carblockingpage/:id',controller.carblockingpage)
+router.get('/profile',controller.profile)
+router.get('/editprofilepage/:id',controller.editprofilepage)
 
 router.get('/demo',controller.demo)
 

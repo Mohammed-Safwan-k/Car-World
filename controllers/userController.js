@@ -48,7 +48,7 @@ module.exports = {
 
   // DEMO
   demo: (req, res) => {
-    res.render('user/carblockingpage',{ login: true, user: req.session.user })
+    res.render('user/profile', { login: true, user: req.session.user })
   },
 
 
@@ -61,11 +61,11 @@ module.exports = {
       const banner = await BannerModel.find()
       const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').limit(6)
 
-      res.render("user/home", { login: true, user: req.session.user , banner , products});
+      res.render("user/home", { login: true, user: req.session.user, banner, products });
     } else {
       const banner = await BannerModel.find()
       const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').limit(6)
-      res.render('user/home', { login: false , banner , products});
+      res.render('user/home', { login: false, banner, products });
     }
   },
 
@@ -239,20 +239,20 @@ module.exports = {
 
   // Wishlist Page
   wishlist: async (req, res) => {
-    
+
     let userId = req.session.userId;
     console.log(userId)
     // let list = await Wishlist.findOne({ userId: userId }).populate('productIds').populate('productIds.$.brand')
-    let list =await Wishlist.aggregate( [
+    let list = await Wishlist.aggregate([
       {
         '$unwind': {
           'path': '$productIds'
         }
       }, {
         '$lookup': {
-          'from': 'productdatas', 
-          'localField': 'productIds', 
-          'foreignField': '_id', 
+          'from': 'productdatas',
+          'localField': 'productIds',
+          'foreignField': '_id',
           'as': 'result'
         }
       }, {
@@ -261,9 +261,9 @@ module.exports = {
         }
       }, {
         '$lookup': {
-          'from': 'branddatas', 
-          'localField': 'result.brand', 
-          'foreignField': '_id', 
+          'from': 'branddatas',
+          'localField': 'result.brand',
+          'foreignField': '_id',
           'as': 'result.brand'
         }
       }, {
@@ -272,9 +272,9 @@ module.exports = {
         }
       }, {
         '$lookup': {
-          'from': 'vehicledatas', 
-          'localField': 'result.type', 
-          'foreignField': '_id', 
+          'from': 'vehicledatas',
+          'localField': 'result.type',
+          'foreignField': '_id',
           'as': 'result.type'
         }
       }, {
@@ -283,9 +283,9 @@ module.exports = {
         }
       }, {
         '$lookup': {
-          'from': 'fueldatas', 
-          'localField': 'result.fuelType', 
-          'foreignField': '_id', 
+          'from': 'fueldatas',
+          'localField': 'result.fuelType',
+          'foreignField': '_id',
           'as': 'result.fuelType'
         }
       }, {
@@ -299,11 +299,11 @@ module.exports = {
       }
     ])
     console.log(list)
-    if(list){
+    if (list) {
       // let wish = list.productIds
       if (req.session.userLogin) {
-        res.render("user/wishlist", {login: true, user: req.session.user, list, index:1})
-      }else {
+        res.render("user/wishlist", { login: true, user: req.session.user, list, index: 1 })
+      } else {
         res.redirect('/signin')
       }
     }
@@ -312,23 +312,23 @@ module.exports = {
 
 
   // Car Blocking Page
-  carblockingpage : (req, res) => {
+  carblockingpage: (req, res) => {
     if (req.session.userLogin) {
-    const id = req.params.id;
-    const product = ProductModel.findById({_id: id})
-      res.render('user/carblockingpage',{ login: true, user: req.session.user, product ,id })
+      const id = req.params.id;
+      const product = ProductModel.findById({ _id: id })
+      res.render('user/carblockingpage', { login: true, user: req.session.user, product, id })
     }
   },
 
 
   // Block Car 
-  blockCar: async(req, res) => {
+  blockCar: async (req, res) => {
     const id = req.params.id
-    await UserModel.findOneAndUpdate({ _id:req.session.userId},{ $addToSet: { BookedVehicles: id } })
-    await ProductModel.findByIdAndUpdate({_id : id}, { $set: { status: "Blocked"}})
-    .then(() => {
-      res.redirect('/allproductpage')
-    })
+    await UserModel.findOneAndUpdate({ _id: req.session.userId }, { $addToSet: { BookedVehicles: id } })
+    await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Blocked" } })
+      .then(() => {
+        res.redirect('/allproductpage')
+      })
   },
 
   // BlockedCarModel: async (req,res) => {
@@ -346,6 +346,25 @@ module.exports = {
   //   })
   // } ,
 
+
+
+
+
+  profile: async  (req, res) => {
+    if (req.session.userLogin) {
+      const id = req.session.userId;
+      const userdetails = await UserModel.findById({ _id : id})
+      res.render('user/profile',{login: true, user: req.session.user, userdetails})
+    }
+  },
+
+  editprofilepage: async (req, res) => {
+    if (req.session.userLogin) {
+      const id = req.params.id
+      let profile = await UserModel.findById({ _id : id })
+      res.render('user/editprofile', { login: true, user: req.session.user, profile})
+    }
+  },
 
 
 
