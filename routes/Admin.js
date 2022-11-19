@@ -46,6 +46,8 @@ router.post("/", controller.adminlogin)
 router.post("/addproduct", controller.addproduct)
 router.post("/deleteproduct/:id",controller.deleteproduct)
 router.post("/updateProduct/:id",controller.updateProduct)
+router.post("/unblockCar/:id",controller.unblockCar)
+router.post("/blockCar/:id",controller.blockCar)
 
 router.post("/adduser", controller.adduser)
 router.post("/unblockUser/:id",controller.unblockUser)

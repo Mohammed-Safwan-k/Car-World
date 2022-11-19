@@ -22,7 +22,7 @@
                 <th scope="col">User Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone</th>
-                <th scope="col">Account Status</th>
+                <!-- <th scope="col">Account Status</th> -->
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -44,9 +44,7 @@
                   <td>
                     <%= user.phone %>
                   </td>
-                  <td>
-                    <%= user.status %>
-                  </td>
+                  
                   <td>
                     <% if (user.status=="Blocked" ) { %>
                       <form action="/admin/unblockUser/<%= user._id %> " method="post">

@@ -24,6 +24,10 @@ router.get('/carblockingpage/:id',controller.carblockingpage)
 router.get('/profile',controller.profile)
 router.get('/editprofilepage/:id',controller.editprofilepage)
 
+router.get('/categoryProductspage/:id',controller.categoryproductpage)
+
+
+
 router.get('/demo',controller.demo)
 
 
@@ -41,7 +45,10 @@ router.post('/resendotp',controller.resendotp)
 router.post('/verifyotp',controller.verifyotp)
 
 router.post('/addToWishlist/:productId',controller.addtowishlist)
+router.post('/removeFromWishlist/:id', controller.removeFromWishlist)
 router.post('/blockCar/:id',controller.blockCar)
+
+router.post('/updateProfile/:id',controller.updateProfile)
 
 
 

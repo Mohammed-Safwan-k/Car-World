@@ -36,6 +36,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         default: 'Unblocked'
     },
+    date: {
+        type: Date,
+        default: Date.now
+    }
     
 
 

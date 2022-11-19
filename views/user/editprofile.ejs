@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <div class="card-title">Edit Profile</div>
                             <hr>
-                            <form>
+                            <form action="/updateProfile/<%= profile._id %>" method="post">
                                 <div class="form-group">
                                     <label for="input-1">Full Name</label>
                                     <input type="text" class="form-control" required name="fullName" id="input-1" value="<%= profile.fullName %>" placeholder="Enter Your Full Name">

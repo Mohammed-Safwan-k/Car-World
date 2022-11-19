@@ -59,13 +59,18 @@ module.exports = {
     // res.send("You just created a User ...!!!");
     if (req.session.userLogin) {
       const banner = await BannerModel.find()
-      const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').limit(6)
-
-      res.render("user/home", { login: true, user: req.session.user, banner, products });
+      const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort( {date: -1}).limit(6)
+      const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+      res.render("user/home", { login: true, user: req.session.user, banner, products, brand, fuel, type  });
     } else {
       const banner = await BannerModel.find()
-      const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').limit(6)
-      res.render('user/home', { login: false, banner, products });
+      const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort( {date: -1}).limit(6)
+      const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+      res.render('user/home', { login: false, banner, products, brand, fuel, type });
     }
   },
 
@@ -202,8 +207,23 @@ module.exports = {
   allproductpage: async (req, res) => {
     const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
     console.log(products)
-    res.render('user/allProducts', { login: true, user: req.session.user, products })
+    const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+    res.render('user/allProducts', { login: true, user: req.session.user, products, brand,fuel,type })
 
+  },
+
+
+  // Category product page
+  categoryproductpage: async ( req, res) => {
+    id = req.params.id
+    const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+    const brandproducts = await ProductModel.find({$or:[{type : id },{brand : id },{fuelType : id }] }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+   console.log(brandproducts);
+    res.render('user/categoryProducts', { login: true, user: req.session.user, brandproducts, brand,type,fuel})
   },
 
 
@@ -211,7 +231,10 @@ module.exports = {
   singleProductpage: async (req, res) => {
     const product = await ProductModel.findById({ _id: req.params.id }).populate('type').populate('brand').populate('fuelType')
     console.log(product);
-    res.render('user/singleProduct', { login: true, user: req.session.user, product })
+    const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+    res.render('user/singleProduct', { login: true, user: req.session.user, product, brand,type,fuel })
   },
 
 
@@ -302,11 +325,25 @@ module.exports = {
     if (list) {
       // let wish = list.productIds
       if (req.session.userLogin) {
-        res.render("user/wishlist", { login: true, user: req.session.user, list, index: 1 })
+        const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+        res.render("user/wishlist", { login: true, user: req.session.user, list, index: 1 , brand,fuel,type})
       } else {
         res.redirect('/signin')
       }
     }
+
+  },
+
+
+  removeFromWishlist: async (req, res) => {
+    let productId = req.params.id
+    let userId = req.session.userId;
+    await Wishlist.findOneAndUpdate({ userId}, { $pull: {productIds:productId}})
+    .then(()=> {
+      res.redirect('/wishlist')
+    })
 
   },
 
@@ -354,7 +391,10 @@ module.exports = {
     if (req.session.userLogin) {
       const id = req.session.userId;
       const userdetails = await UserModel.findById({ _id : id})
-      res.render('user/profile',{login: true, user: req.session.user, userdetails})
+      const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+      res.render('user/profile',{login: true, user: req.session.user, userdetails, brand,fuel,type})
     }
   },
 
@@ -362,7 +402,25 @@ module.exports = {
     if (req.session.userLogin) {
       const id = req.params.id
       let profile = await UserModel.findById({ _id : id })
-      res.render('user/editprofile', { login: true, user: req.session.user, profile})
+      const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+      res.render('user/editprofile', { login: true, user: req.session.user, profile, brand,fuel,type})
+    }
+  },
+
+  updateProfile: async (req, res) => {
+    if (req.session.userLogin) {
+      const { fullName, userName, email, phone} = req.body;
+
+      let details = await UserModel.findOneAndUpdate( { _id: req.params.id}, {$set: { fullName, userName, email, phone}});
+      await details.save()
+      .then(() => {
+        res.redirect('/profile')
+      })
+    }
+    else {
+      res.redirect('/signin')
     }
   },
 

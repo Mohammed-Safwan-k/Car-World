@@ -150,19 +150,6 @@ module.exports = {
         }
     },
 
-    //edit product page
-    editproductpage: async (req, res) => {
-        if (req.session.adminLogin) {
-            const id = req.params.id
-            const type = await TypeModel.find()
-            const brand = await BrandModel.find()
-            const fuel = await FuelModel.find()
-            let product = await ProductModel.findOne({ _id: id }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
-            console.log(product)
-            res.render('admin/editProduct', { product, type, brand, fuel })
-        }
-
-    },
 
 
     //add products
@@ -217,7 +204,7 @@ module.exports = {
 
     //view all products
     viewproduct: async (req, res) => {
-        const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+        const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({date:-1})
         console.log(products)
         res.render('admin/viewproduct', { products, index: 1 })
 
@@ -229,6 +216,22 @@ module.exports = {
         await ProductModel.findByIdAndDelete({ _id: id });
         res.redirect("/admin/allproduct")
     },
+
+
+     //edit product page
+     editproductpage: async (req, res) => {
+        if (req.session.adminLogin) {
+            const id = req.params.id
+            const type = await TypeModel.find()
+            const brand = await BrandModel.find()
+            const fuel = await FuelModel.find()
+            let product = await ProductModel.findOne({ _id: id }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+            console.log(product)
+            res.render('admin/editProduct', { product, type, brand, fuel })
+        }
+
+    },
+
 
     // Update Product
     updateProduct: async (req, res) => {
@@ -246,6 +249,26 @@ module.exports = {
         await details.save().then(() => {
             res.redirect('/admin/allproduct')
         })
+    },
+
+
+    // UnBlock Car
+    unblockCar: async(req, res) => {
+        const id = req.params.id
+        await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Unblocked" } })
+            .then(() => {
+                res.redirect('/admin/allproduct')
+            })
+    },
+
+    // Block car
+    blockCar: async(req, res) => {
+        const id = req.params.id
+        await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Blocked" } })
+            .then(() => {
+                res.redirect('/admin/allproduct')
+            })
+
     },
 
 
