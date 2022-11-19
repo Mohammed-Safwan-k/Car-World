@@ -97,15 +97,19 @@
 								<a href="">Vehicle Types</a>
 								<ul class="dropdown">
 									<% type.forEach(function(x) { %>
-										<li><a href="/categoryProductspage/<%= x._id %>"><%= x.typeName %></a></li>
+										<li><a href="/categoryProductspage/<%= x._id %>">
+												<%= x.typeName %>
+											</a></li>
 										<% }) %>
-									</ul>
+								</ul>
 							</li>
 							<li class="has-dropdown">
 								<a href="services.html">Brand</a>
 								<ul class="dropdown">
 									<% brand.forEach(function(x) { %>
-										<li><a href="/categoryProductspage/<%= x._id %>"><%= x.brand %></a></li>
+										<li><a href="/categoryProductspage/<%= x._id %>">
+												<%= x.brand %>
+											</a></li>
 										<% }) %>
 								</ul>
 							</li>
@@ -113,7 +117,9 @@
 								<a href="services.html">Fuel Type</a>
 								<ul class="dropdown">
 									<% fuel.forEach(function(x) { %>
-										<li><a href="/categoryProductspage/<%= x._id %>"><%= x.fuelType %></a></li>
+										<li><a href="/categoryProductspage/<%= x._id %>">
+												<%= x.fuelType %>
+											</a></li>
 										<% }) %>
 								</ul>
 							</li>
@@ -147,7 +153,7 @@
 												<li><a href="/profile">
 														<%= user %>
 													</a></li>
-													<li><a href="#">Blocked Vehicles</a></li>
+												<li><a href="#">Blocked Vehicles</a></li>
 												<li><a href="/logout">Logout</a></li>
 
 
