@@ -63,18 +63,14 @@ module.exports = {
       const brand = await BrandModel.find()
       const fuel = await FuelModel.find()
       const type = await TypeModel.find()
-      const brandproducts = await ProductModel.find({$or:[{type : id },{brand : id },{fuelType : id }] }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
-
-      res.render("user/home", { login: true, user: req.session.user,brandproducts, banner, products, brand, fuel, type  });
+      res.render("user/home", { login: true, user: req.session.user, banner, products, brand, fuel, type  });
     } else {
       const banner = await BannerModel.find()
       const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort( {date: -1}).limit(6)
       const brand = await BrandModel.find()
       const fuel = await FuelModel.find()
       const type = await TypeModel.find()
-      const brandproducts = await ProductModel.find({$or:[{type : id },{brand : id },{fuelType : id }] }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
-
-      res.render('user/home', { login: false, banner, products,brandproducts, brand, fuel, type });
+      res.render('user/home', { login: false, banner, products, brand, fuel, type });
     }
   },
 
@@ -209,27 +205,54 @@ module.exports = {
 
   // All Product
   allproductpage: async (req, res) => {
-    const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
-    console.log(products)
-    const brand = await BrandModel.find()
+    if(req.session.userLogin){
+
+      const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+      console.log(products)
+      const brand = await BrandModel.find()
       const fuel = await FuelModel.find()
       const type = await TypeModel.find()
       const brandproducts = await ProductModel.find({$or:[{type : id },{brand : id },{fuelType : id }] }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+      
+      res.render('user/allProducts', { login: true, user: req.session.user, products, brandproducts,brand,fuel,type })
+    } 
+    else {
+      const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+      console.log(products)
+      const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+      const brandproducts = await ProductModel.find({$or:[{type : id },{brand : id },{fuelType : id }] }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+      
+      res.render('user/allProducts', { login: false,  products, brandproducts,brand,fuel,type })
 
-    res.render('user/allProducts', { login: true, user: req.session.user, products, brandproducts, brand,fuel,type })
+    }
 
   },
 
 
   // Category product page
   categoryproductpage: async ( req, res) => {
-    id = req.params.id
-    const brand = await BrandModel.find()
+    if(req.session.userLogin){
+
+      id = req.params.id
+      const brand = await BrandModel.find()
       const fuel = await FuelModel.find()
       const type = await TypeModel.find()
-    const brandproducts = await ProductModel.find({$or:[{type : id },{brand : id },{fuelType : id }] }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
-   console.log(brandproducts);
-    res.render('user/categoryProducts', { login: true, user: req.session.user, brandproducts, brand,type,fuel})
+      const brandproducts = await ProductModel.find({$or:[{type : id },{brand : id },{fuelType : id }] }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+      console.log(brandproducts);
+      res.render('user/categoryProducts', { login: true, user: req.session.user, brandproducts, brand,type,fuel})
+    }
+    else{
+      id = req.params.id
+      const brand = await BrandModel.find()
+      const fuel = await FuelModel.find()
+      const type = await TypeModel.find()
+      const brandproducts = await ProductModel.find({$or:[{type : id },{brand : id },{fuelType : id }] }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+      console.log(brandproducts);
+      res.render('user/categoryProducts', { login: false,  brandproducts, brand,type,fuel})
+      
+    }
   },
 
 
