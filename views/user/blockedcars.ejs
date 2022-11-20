@@ -1,0 +1,83 @@
+<%- include('../user/layout/user-header-layout.ejs') -%>
+
+
+
+
+
+
+
+
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Wishlist</h5>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Type</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Car Name</th>
+                <th scope="col">FUEL TYPE</th>
+                <th scope="col">Price</th>
+                <th scope="col">Image</th>
+                <th scope="col">OPTIONS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% list.forEach(function(x) { %>
+                <tr>
+                  <th scope="row">
+                    <%= index++ %>
+                  </th>
+                  <td>
+                    <%= x.result.type.typeName %>
+                  </td>
+                  <td>
+                    <%= x.result.brand.brand %>
+                  </td>
+                  <td>
+                    <%= x.result.productName %>
+                  </td>
+                  <td>
+                    <%= x.result.fuelType.fuelType %>
+                  </td>
+                  <td>
+                    RS: <%= x.result.price %>
+                  </td>
+                  <td><img src='/images/car/<%= x.result.image %>' alt="" style="height: 50px; width: 60px;"></td>
+                  <!-- <td>
+                    <form action="/removeFromWishlist/" method="post">
+                      <button type="submit" class="btn  btn-danger" style="width: 100px;"
+                        onclick="return confirm('Are you sure you want to delete ?')"><i
+                          class="bi bi-trash-fill"></i></button>
+                    </form>
+
+                  </td> -->
+
+                </tr>
+                <% }) %>
+
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <%- include('../user/layout/user-footer-layout.ejs') -%>

@@ -177,8 +177,11 @@ module.exports = {
 
         const { type, brand, fuelType, productName, discription, price } = req.body;
 
-        const image = req.file;
+        const image = req.files;
+        image.forEach(img => { });
         console.log(image);
+        const productimages = image != null ? image.map((img) => img.filename) : null
+        console.log(productimages)
 
         const newProduct = ProductModel({
             type,
@@ -187,7 +190,8 @@ module.exports = {
             productName,
             discription,
             price,
-            image: image.filename,
+            // image: image.filename,
+            image : productimages
         });
         console.log(newProduct)
 

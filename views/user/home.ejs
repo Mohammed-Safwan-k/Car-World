@@ -98,7 +98,7 @@
         <% products.forEach(function(x){ %>
           <div class="col-md-4 text-center animate-box">
             <div class="product">
-              <div class="product-grid" style="background-image: url('/images/car/<%= x.image %>')">
+              <div class="product-grid" style="background-image: url('/images/car/<%= x.image[0] %>')">
                 <div class="inner">
                   <p>
                     <a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>

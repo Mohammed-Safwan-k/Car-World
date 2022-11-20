@@ -1,7 +1,7 @@
 <%-include('../user/layout/user-header-layout.ejs') -%>
 
 
-<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url('/images/car/<%= product.image %>');">
+<header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner" style="background-image:url('/images/car/<%= product.image[0] %>');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
@@ -25,14 +25,14 @@
                     <div class="item">
                         <div class="active text-center">
                             <figure>
-                                <img src="/images/car/<%= product.image %>" alt="image">
+                                <img src="/images/car/<%= product.image[0] %>" alt="image">
                             </figure>
                         </div>
                     </div>
                      <div class="item">
                         <div class="active text-center">
                             <figure>
-                                <img src="/images/car/<%= product.image %>" alt="user">
+                                <img src="/images/car/<%= product.image[1] %>" alt="user">
                             </figure>
                         </div>
                     </div>
