@@ -97,7 +97,7 @@
 								<a href="">Vehicle Types</a>
 								<ul class="dropdown">
 									<% type.forEach(function(x) { %>
-										<li><a href="/categoryProductspage/<%= x._id %>">
+										<li><a href="/categoryProductspage/<%= x._id %>/<%= x.typeName %>">
 												<%= x.typeName %>
 											</a></li>
 										<% }) %>
@@ -107,7 +107,7 @@
 								<a href="services.html">Brand</a>
 								<ul class="dropdown">
 									<% brand.forEach(function(x) { %>
-										<li><a href="/categoryProductspage/<%= x._id %>">
+										<li><a href="/categoryProductspage/<%= x._id %>/<%= x.brand %>">
 												<%= x.brand %>
 											</a></li>
 										<% }) %>
@@ -117,7 +117,7 @@
 								<a href="services.html">Fuel Type</a>
 								<ul class="dropdown">
 									<% fuel.forEach(function(x) { %>
-										<li><a href="/categoryProductspage/<%= x._id %>">
+										<li><a href="/categoryProductspage/<%= x._id %>/<%= x.fuelType %>">
 												<%= x.fuelType %>
 											</a></li>
 										<% }) %>
@@ -126,8 +126,7 @@
 							<li><a href="contact.html">Contact</a></li>
 							<% if(login){ %>
 
-								<li class="shopping-cart"><a href="/wishlist" class="cart"><span><i
-												class="bi bi-heart-fill"></i></span></a></li>
+								<li class="shopping-cart"><a href="/wishlist" class="cart"><span><i class="bi bi-heart-fill"></i></span></a></li>
 								<% } %>
 						</ul>
 					</div>
@@ -153,7 +152,7 @@
 												<li><a href="/profile">
 														<%= user %>
 													</a></li>
-												<li><a href="#">Blocked Vehicles</a></li>
+												<li><a href="/blockedcarspage">Blocked Vehicles</a></li>
 												<li><a href="/logout">Logout</a></li>
 
 

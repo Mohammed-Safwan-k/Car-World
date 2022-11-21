@@ -3,15 +3,15 @@
 <%-include('../user/layout/user-header-layout.ejs') -%>
 
 <header id="fh5co-header" class="fh5co-cover fh5co-cover-sm" role="banner"
-    style="background-image:url('https://cdn.eso.org/images/thumb300y/eso1907a.jpg');">
+    style="background-image:url('https://wallpaperaccess.com/full/2492629.jpg');">
     <div class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2 text-center">
                 <div class="display-t">
                     <div class="display-tc animate-box" data-animate-effect="fadeIn">
-                            <h1>Product</h1>
-                        <h2>Our All Types of Vehicle</h2>
+                            <h1> <%= name %></h1>
+                        <h2>Our All Types of <%= name %> Vehicle</h2>
                     </div>
                 </div>
             </div>
@@ -37,13 +37,13 @@
                         <div class="product-grid" style="background-image:url('/images/car/<%= product.image[0] %>');">
                             <div class="inner">
                                 <p>
-                                    <a href="single.html" class="icon"><i class="icon-shopping-cart"></i></a>
+                                    <a href="/addToWishlist/<%= product._id %>" class="icon"><i class="bi bi-heart-fill"></i></a>
                                     <a href="/singleProduct/<%= product._id %>" class="icon"><i class="icon-eye"></i></a>
                                 </p>
                             </div>
                         </div>
                         <div class="desc">
-                            <h3><a href="single.html">
+                            <h3><a href="/singleProduct/<%= product._id %>">
                                     <%= product.brand.brand %>
                                         <%= product.productName %>
                                 </a></h3>

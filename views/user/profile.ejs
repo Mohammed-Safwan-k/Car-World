@@ -90,52 +90,52 @@
             <div id="fh5co-logo"><a href="/">Car World.</a></div>
           </div>
           <div class="col-md-6 col-xs-6 text-center menu-1">
-            <ul>
-              <li class="has-dropdown active">
-                <a href="/allproductpage">Shop</a>
-                <!-- <ul class="dropdown">
+						<ul>
+							<li class="has-dropdown active">
+								<a href="/allproductpage">Shop</a>
+								<!-- <ul class="dropdown">
 								<li><a href="single.html">Single Shop</a></li>
 							</ul> -->
-              </li>
-              <li><a href="about.html">About</a></li>
-              <li class="has-dropdown">
-                <a href="">Vehicle Types</a>
-                <ul class="dropdown">
-                  <% type.forEach(function(x) { %>
-                    <li><a href="/categoryProductspage/<%= x._id %>">
-                        <%= x.typeName %>
-                      </a></li>
-                    <% }) %>
-                </ul>
-              </li>
-              <li class="has-dropdown">
-                <a href="services.html">Brand</a>
-                <ul class="dropdown">
-                  <% brand.forEach(function(x) { %>
-                    <li><a href="/categoryProductspage/<%= x._id %>">
-                        <%= x.brand %>
-                      </a></li>
-                    <% }) %>
-                </ul>
-              </li>
-              <li class="has-dropdown">
-                <a href="services.html">Fuel Type</a>
-                <ul class="dropdown">
-                  <% fuel.forEach(function(x) { %>
-                    <li><a href="/categoryProductspage/<%= x._id %>">
-                        <%= x.fuelType %>
-                      </a></li>
-                    <% }) %>
-                </ul>
-              </li>
-              <li><a href="contact.html">Contact</a></li>
-              <% if(login){ %>
+							</li>
+							<li><a href="about.html">About</a></li>
+							<li class="has-dropdown">
+								<a href="">Vehicle Types</a>
+								<ul class="dropdown">
+									<% type.forEach(function(x) { %>
+										<li><a href="/categoryProductspage/<%= x._id %>/<%= x.typeName %>">
+												<%= x.typeName %>
+											</a></li>
+										<% }) %>
+								</ul>
+							</li>
+							<li class="has-dropdown">
+								<a href="services.html">Brand</a>
+								<ul class="dropdown">
+									<% brand.forEach(function(x) { %>
+										<li><a href="/categoryProductspage/<%= x._id %>/<%= x.brand %>">
+												<%= x.brand %>
+											</a></li>
+										<% }) %>
+								</ul>
+							</li>
+							<li class="has-dropdown">
+								<a href="services.html">Fuel Type</a>
+								<ul class="dropdown">
+									<% fuel.forEach(function(x) { %>
+										<li><a href="/categoryProductspage/<%= x._id %>/<%= x.fuelType %>">
+												<%= x.fuelType %>
+											</a></li>
+										<% }) %>
+								</ul>
+							</li>
+							<li><a href="contact.html">Contact</a></li>
+							<% if(login){ %>
 
-                <li class="shopping-cart"><a href="/wishlist" class="cart"><span><i
-                        class="bi bi-heart-fill"></i></span></a></li>
-                <% } %>
-            </ul>
-          </div>
+								<li class="shopping-cart"><a href="/wishlist" class="cart"><span><i
+												class="bi bi-heart-fill"></i></span></a></li>
+								<% } %>
+						</ul>
+					</div>
           <div class="col-md-3 col-xs-4 text-right hidden-xs menu-2">
             <ul>
               <li class="search">

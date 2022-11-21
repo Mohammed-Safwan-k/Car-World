@@ -24,8 +24,8 @@ router.get('/carblockingpage/:id',controller.carblockingpage)
 router.get('/profile',controller.profile)
 router.get('/editprofilepage/:id',controller.editprofilepage)
 
-router.get('/categoryProductspage/:id',controller.categoryproductpage)
-
+router.get('/categoryProductspage/:id/:category',controller.categoryproductpage)
+router.get('/blockedcarspage',controller.blockedcarspage)
 
 
 router.get('/demo',controller.demo)

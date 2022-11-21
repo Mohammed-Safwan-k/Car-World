@@ -44,7 +44,7 @@ const storage = multer.diskStorage({
     },
 });
 // const upload = multer({ storage: storage})
-app.use(multer({storage: storage}).array("image"))
+app.use(multer({storage: storage}).array("image", 10))
 
 
 
@@ -75,9 +75,6 @@ app.use((req, res, next) => {
 //User route
 // const { error } = require('console');
 app.use("/", homeRoute);
-
-
-
 
 // Admin route
 app.use("/admin", adminRoute);

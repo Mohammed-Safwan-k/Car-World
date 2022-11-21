@@ -46,7 +46,7 @@
                   <td>
                     RS: <%= x.result.price %>
                   </td>
-                  <td><img src='/images/car/<%= x.result.image %>' alt="" style="height: 50px; width: 60px;"></td>
+                  <td><img src='/images/car/<%= x.result.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
                   <td>
                     <form action="/removeFromWishlist/<%= x.result._id %>" method="post">
                       <button type="submit" class="btn  btn-danger" style="width: 100px;"

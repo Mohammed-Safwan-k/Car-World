@@ -10,7 +10,7 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">Wishlist</h5>
+        <h5 class="card-title">Blocked Cars</h5>
         <div class="table-responsive">
           <table class="table table-hover">
             <thead>
@@ -22,11 +22,10 @@
                 <th scope="col">FUEL TYPE</th>
                 <th scope="col">Price</th>
                 <th scope="col">Image</th>
-                <th scope="col">OPTIONS</th>
               </tr>
             </thead>
             <tbody>
-              <% list.forEach(function(x) { %>
+              <% cars.forEach(function(x) { %>
                 <tr>
                   <th scope="row">
                     <%= index++ %>
