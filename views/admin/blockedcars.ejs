@@ -4,12 +4,8 @@
     <div class="card">
       <div class="card-body ">
         <div style="display: flex; justify-content: space-between;">
-          <h5 class="card-title">Products</h5>
-          <div>
-            <form action="/admin/addproductpage" method="get">
-              <button class="btn btn-success me-md-2" type="submit">Add Product</button>
-            </form>
-          </div>
+          <h5 class="card-title">Blocked Cars</h5>
+          
 
         </div>
         <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div> -->
@@ -54,46 +50,38 @@
                     <%= product.price %>
                   </td>
                   <td><img src='/images/car/<%= product.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
-                  <td><a class="btn btn-primary" href="/admin/editproductpage/<%= product._id %>" role="button"
-                      style="width: 100px;"><i class="bi bi-pen-fill"></i></a> <br>
+                  <td>
 
-                      <!-- Blocked or not Blocked -->
-                      <% if (product.status=="Blocked" ) { %>
-                        <br>
+                    <% if (product.status=="Blocked" ) { %>
                         <form action="/admin/unblockCar/<%= product._id %> " method="post">
-                          <button type="submit" class="btn btn-warning" style="width: 100px;"> UnBlock</button>
+                            <button type="submit" class="btn btn-warning" style="width: 100px;"> UnBlock</button>
                         </form>
-                      <% } %>
-                        <br>
-
+                        <% } %>
+                        <br>    
+                        
                       <!-- Sold or not Sold -->
                       <% if (product.sold=='Notsold' ) { %>
-                        <form action="/admin/soldCarp/<%= product._id %> " method="post">
-                          <button type="submit" class="btn btn-success" style="width: 100px;"> Sold</button>
+                        <form action="/admin/soldCarb/<%= product._id %> " method="post">
+                          <button type="submit" class="btn btn-success" style="width: 100px;">Sold</button>
                         </form>
                       <% } %>
-                        <br>
-                        <form action="/admin/deleteproduct/<%= product._id %>" method="post">
-                          <button type="submit" class="btn  btn-danger" style="width: 100px;" 
-                          onclick="return confirm('Are you sure you want to delete ?')"><i
-                          class="bi bi-trash-fill"></i></button>
-                        </form>
+                        
                   </td>
                 </tr>
               <% }) %>
                   <section class="d-flex justify-content-center mt-2">
                     <% if(hasPreviousPage){ %>
                       <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black" class="text-center"
-                        href="/admin/allproduct?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
+                        href="/admin/blockedcarpage?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
                           aria-hidden="true"></i></a>
                       <% } %>
                         <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black; border: 1px solid black;"
-                          href="/admin/allproduct?page=<%= page %>">
+                          href="/admin/blockedcarpage?page=<%= page %>">
                           <%= page %>
                         </a>
                         <% if(hasNextPage) { %>
                           <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black;"
-                            href="/admin/allproduct?page=<%=  page+1 %>"><i class="fa fa-chevron-right"
+                            href="/admin/blockedcarpage?page=<%=  page+1 %>"><i class="fa fa-chevron-right"
                               aria-hidden="true"></i></a>
                           <% } %>
 

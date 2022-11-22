@@ -38,8 +38,8 @@
                     <%= banner.discription %>
                   </td>
                   <td><img src='/images/car/<%= banner.image %>' alt="" style="height: 50px; width: 60px;"></td>
-                  <td><a class="btn btn-primary" href="/admin/editproductpage/<%= banner._id %>" role="button" style="width: 100px;"><i class="bi bi-pen-fill"></i></a> <br><br>
-                    <form action="/admin/deleteproduct/<%= banner._id %>" method="post">
+                  <td>
+                    <form action="/admin/deletebanner/<%= banner._id %>" method="post">
                       <button type="submit" class="btn  btn-danger" style="width: 100px;"
                           onclick="return confirm('Are you sure you want to delete ?')"><i class="bi bi-trash-fill"></i></button>
                   </form>

@@ -17,10 +17,16 @@ module.exports = {
 
 
     //admin home page
-    home: (req, res) => {
-        if (req.session.adminLogin) {
-            res.render('admin/home')
-        }
+    home: async (req, res) => {
+        const users = await UserModel.find().countDocuments()
+        const products = await ProductModel.find().countDocuments()
+        const sold = await ProductModel.find({sold : 'Sold'}).countDocuments()
+        const blocked = await ProductModel.find({ status : 'Blocked'}).countDocuments()
+        const Brand = await BrandModel.find().countDocuments()
+        const Type = await TypeModel.find().countDocuments()
+        const Fuel = await FuelModel.find().countDocuments()
+        const Banner = await BannerModel.find().countDocuments()
+        res.render('admin/home', { admin: req.session.admin , users, products, sold, blocked, Brand, Type, Fuel, Banner})
     },
 
     //login page
@@ -49,6 +55,7 @@ module.exports = {
             return res.redirect('/admin');
         }
         req.session.adminLogin = true;
+        req.session.admin = admin.userName
         res.redirect('/admin/adminhome');
     },
 
@@ -59,9 +66,7 @@ module.exports = {
 
     //add user page
     adduserpage: (req, res) => {
-        if (req.session.adminLogin) {
-            res.render('admin/adduser')
-        }
+        res.render('admin/adduser', { admin: req.session.admin })
     },
 
     //add user
@@ -113,7 +118,7 @@ module.exports = {
     //view all user
     alluser: async (req, res) => {
         const users = await UserModel.find({})
-        res.render('admin/viewuser', { users, index: 1 })
+        res.render('admin/viewuser', { users, index: 1, admin: req.session.admin })
 
     },
 
@@ -145,7 +150,7 @@ module.exports = {
             const brand = await BrandModel.find()
             const fuel = await FuelModel.find()
 
-            res.render('admin/addproduct', { type, brand, fuel })
+            res.render('admin/addproduct', { type, brand, fuel, admin: req.session.admin })
 
         }
     },
@@ -191,7 +196,7 @@ module.exports = {
             discription,
             price,
             // image: image.filename,
-            image : productimages
+            image: productimages
         });
         console.log(newProduct)
 
@@ -212,12 +217,14 @@ module.exports = {
         const items_per_page = 5;
         const totalproducts = await ProductModel.find().countDocuments()
         console.log(totalproducts);
-        const products = await ProductModel.find({}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({date:-1}).skip((page-1)*items_per_page).limit(items_per_page)
+        const products = await ProductModel.find({sold: 'Notsold'}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
         console.log(products)
-        res.render('admin/viewproduct', { products, index: 1, page,
-            hasNextPage:items_per_page * page < totalproducts,
-            hasPreviousPage : page > 1,
-            PreviousPage : page -1, })
+        res.render('admin/viewproduct', {
+            products, index: 1, admin: req.session.admin, page,
+            hasNextPage: items_per_page * page < totalproducts,
+            hasPreviousPage: page > 1,
+            PreviousPage: page - 1,
+        })
 
     },
 
@@ -229,8 +236,8 @@ module.exports = {
     },
 
 
-     //edit product page
-     editproductpage: async (req, res) => {
+    //edit product page
+    editproductpage: async (req, res) => {
         if (req.session.adminLogin) {
             const id = req.params.id
             const type = await TypeModel.find()
@@ -238,8 +245,44 @@ module.exports = {
             const fuel = await FuelModel.find()
             let product = await ProductModel.findOne({ _id: id }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
             console.log(product)
-            res.render('admin/editProduct', { product, type, brand, fuel })
+            res.render('admin/editProduct', { product, type, brand, fuel, admin: req.session.admin })
         }
+
+    },
+
+
+    // sold car page
+    soldcarpage: async (req, res) => {
+        const page = parseInt(req.query.page) || 1;
+        const items_per_page = 5;
+        const totalsoldproducts = await ProductModel.find({sold: 'Sold'}).countDocuments()
+        console.log(totalsoldproducts);
+        const products = await ProductModel.find({sold: 'Sold'}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
+        console.log(products)
+        res.render('admin/soldcar', {
+            products, index: 1, admin: req.session.admin, page,
+            hasNextPage: items_per_page * page < totalsoldproducts,
+            hasPreviousPage: page > 1,
+            PreviousPage: page - 1,
+        })
+
+    },
+    
+    
+    // Blocked car page
+    blockedcarpage: async (req, res) => {
+        const page = parseInt(req.query.page) || 1;
+        const items_per_page = 5;
+        const totalblockedproducts = await ProductModel.find({status: 'Blocked'}).countDocuments()
+        console.log(totalblockedproducts);
+        const products = await ProductModel.find({status: 'Blocked', sold: 'Notsold'}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
+        console.log(products)
+        res.render('admin/blockedcars', {
+            products, index: 1, admin: req.session.admin, page,
+            hasNextPage: items_per_page * page < totalblockedproducts,
+            hasPreviousPage: page > 1,
+            PreviousPage: page - 1,
+        })
 
     },
 
@@ -264,7 +307,7 @@ module.exports = {
 
 
     // UnBlock Car
-    unblockCar: async(req, res) => {
+    unblockCar: async (req, res) => {
         const id = req.params.id
         await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Unblocked" } })
             .then(() => {
@@ -273,13 +316,40 @@ module.exports = {
     },
 
     // Block car
-    blockCar: async(req, res) => {
+    blockCar: async (req, res) => {
         const id = req.params.id
         await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Blocked" } })
             .then(() => {
                 res.redirect('/admin/allproduct')
             })
+    },
 
+    // Sold Car
+    soldCarp: async (req, res) => {
+        const id = req.params.id
+        await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { sold: "Sold" } })
+        .then(() => {
+            res.redirect('/admin/allproduct')
+        })
+    },
+   
+   
+    // Sold Car
+    soldCarb: async (req, res) => {
+        const id = req.params.id
+        await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { sold: "Sold" } })
+        .then(() => {
+            res.redirect('/admin/blockedcarpage')
+        })
+    },
+
+    // Not Sold Car
+    notsoldCar: async (req, res) => {
+        const id = req.params.id
+        await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { sold: "Notsold" } })
+        .then(() => {
+            res.redirect('/admin/soldcarpage')
+        })
     },
 
 
@@ -287,7 +357,7 @@ module.exports = {
     // BRAND
     brandpage: async (req, res) => {
         const brand = await BrandModel.find({});
-        res.render('admin/brand', { brand })
+        res.render('admin/brand', { brand, admin: req.session.admin })
     },
     // NEW BRAND
     addBrand: (req, res) => {
@@ -312,7 +382,7 @@ module.exports = {
     // VEHICLE TYPE
     vehicletypepage: async (req, res) => {
         const typeName = await TypeModel.find({});
-        res.render('admin/vehicleType', { typeName })
+        res.render('admin/vehicleType', { typeName, admin: req.session.admin })
     },
     // NEW VEHICLE TYPE
     addvehicletype: (req, res) => {
@@ -334,7 +404,7 @@ module.exports = {
     // FUEL TYPE
     fueltypepage: async (req, res) => {
         const fuelType = await FuelModel.find({});
-        res.render('admin/fuelType', { fuelType })
+        res.render('admin/fuelType', { fuelType, admin: req.session.admin })
     },
     // NEW FUEL
     addfuel: (req, res) => {
@@ -366,36 +436,45 @@ module.exports = {
     allBanner: async (req, res) => {
         const banners = await BannerModel.find({})
         console.log(banners)
-        res.render('admin/viewBanner', { banners, index: 1 })
+        res.render('admin/viewBanner', { banners, index: 1, admin: req.session.admin })
     },
 
     addBannerPage: async (req, res) => {
-        res.render('admin/addBanner')
+        res.render('admin/addBanner', { admin: req.session.admin })
     },
 
     addBanner: async (req, res) => {
 
         const { bannerName, discription } = req.body
 
-        const image = req.file;
+        const image = req.files;
+        image.forEach(img => { });
         console.log(image);
+        const bannerimages = image != null ? image.map((img) => img.filename) : null
 
         const newBanner = BannerModel({
             bannerName,
             discription,
-            image: image.filename,
+            image: bannerimages,
         });
         console.log(newBanner)
 
         await newBanner
-        .save()
-        .then(() => {
-            res.redirect("/admin/allBanner");
-        })
-        .catch((err) => {
-            console.log(err.message);
-            res.redirect("/admin/addBannerPage");
-        });
+            .save()
+            .then(() => {
+                res.redirect("/admin/allBanner");
+            })
+            .catch((err) => {
+                console.log(err.message);
+                res.redirect("/admin/addBannerPage");
+            });
+
+    },
+
+    deletebanner: async (req, res) => {
+        let id = req.params.id;
+        await BannerModel.findByIdAndDelete({ _id: id });
+        res.redirect("/admin/allBanner")
 
     },
 
