@@ -6,9 +6,16 @@ const FuelModel = require('../models/fueltypeModel')
 const Wishlist = require('../models/wishlistModel')
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
-const BlockedCarModel = require("../models/blockedCarModel")
+const OrderModel = require("../models/orderModel")
 const BannerModel = require("../models/bannerModel");
 const { default: mongoose } = require("mongoose");
+const Razorpay = require('razorpay')
+
+var instance = new Razorpay({
+  key_id: 'rzp_test_ySng6ZWmNYwGd1',
+  key_secret: 'PNUZlKIJV7NhpD7UhzEXtRkB',
+});
+
 
 
 

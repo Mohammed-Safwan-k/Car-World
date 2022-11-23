@@ -28,6 +28,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    advance: {
+        type: Number,
+        required: true
+    },
     image: {
         type: [String],
         required: true
@@ -44,7 +48,7 @@ const productSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-    
+
 
 
 

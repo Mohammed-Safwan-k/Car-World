@@ -1,79 +1,83 @@
-
-
 <%-include('../admin/layout/admin-header-layout.ejs') -%>
 
-<div class="col-lg">
-  <div class="card">
-    <div class="card-body">
-    <div class="card-title">Add Car</div>
-    <hr>
-     <form action="/admin/addproduct" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="input-1">Vehicle Type</label>
-      <select class="group input-group form-control" name="type" id="">
-        <option value="" selected >Select Your Vehicle Type</option>
-        <% type.forEach(function(type){ %>
+  <div class="col-lg">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">Add Car</div>
+        <hr>
+        <form action="/admin/addproduct" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="input-1">Vehicle Type</label>
+            <select class="group input-group form-control" name="type" id="">
+              <option value="" selected>Select Your Vehicle Type</option>
+              <% type.forEach(function(type){ %>
 
-          <option value="<%= type._id%>">
-            <%= type.typeName %>
-          </option>
-          <% }) %>
-      </select>
-     <!-- <input type="text" class="form-control" id="input-1" placeholder="Enter Your Name"> -->
+                <option value="<%= type._id%>">
+                  <%= type.typeName %>
+                </option>
+                <% }) %>
+            </select>
+            <!-- <input type="text" class="form-control" id="input-1" placeholder="Enter Your Name"> -->
+          </div>
+
+          <div class="form-group">
+            <label for="input-2">Brand</label>
+            <select class="group input-group form-control" name="brand" id="">
+              <% brand.forEach(function(brand){ %>
+                <option value="<%= brand._id %>">
+                  <%= brand.brand %>
+                </option>
+                <% }) %>
+            </select>
+            <!-- <input type="text" class="form-control" id="input-2" placeholder="Enter Your Email Address"> -->
+          </div>
+
+
+          <div class="form-group">
+            <label for="input-3">Fuel Type</label>
+            <select class="group input-group form-control" name="fuelType" id="">
+              <% fuel.forEach(function(fuel){ %>
+                <option value="<%= fuel._id  %>">
+                  <%= fuel.fuelType %>
+                </option>
+                <% }) %>
+            </select>
+            <!-- <input type="text" class="form-control" id="input-3" placeholder="Enter Your Mobile Number"> -->
+          </div>
+
+          <div class="form-group">
+            <label for="input-4">Model</label>
+            <input class="form-control" id="input-4" type="text" placeholder="Car Name" required name="productName">
+          </div>
+
+          <div class="form-group">
+            <label for="input-5">Details</label>
+            <input class="form-control" id="input-5" type="text" placeholder="Details" required name="discription">
+          </div>
+
+          <div class="form-group">
+            <label for="input-5">Price</label>
+            <input class="form-control" id="input-5" type="tel" placeholder="Price" required name="price">
+          </div>
+          
+          <div class="form-group">
+            <label for="input-5">Advance Amount</label>
+            <input class="form-control" id="input-5" type="tel" placeholder="Advance Amount" required name="advance">
+          </div>
+
+          <div class="form-group">
+            <label for="input-5">Image</label>
+            <input type="file" multiple class="form-control" id="input-5" name="image" required
+              placeholder="Choose an image" />
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="btn btn-success px-5"> Add Car</button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <div class="form-group">
-      <label for="input-2">Brand</label>
-      <select class="group input-group form-control" name="brand" id="">
-        <% brand.forEach(function(brand){ %>
-          <option value="<%= brand._id %>">
-            <%= brand.brand %>
-          </option>
-          <% }) %>
-      </select>
-     <!-- <input type="text" class="form-control" id="input-2" placeholder="Enter Your Email Address"> -->
-    </div>
-
-
-    <div class="form-group">
-      <label for="input-3">Fuel Type</label>
-      <select class="group input-group form-control" name="fuelType" id="">
-        <% fuel.forEach(function(fuel){ %>
-          <option value="<%= fuel._id  %>">
-            <%= fuel.fuelType %>
-          </option>
-          <% }) %>
-      </select>
-     <!-- <input type="text" class="form-control" id="input-3" placeholder="Enter Your Mobile Number"> -->
-    </div>
-
-    <div class="form-group">
-     <label for="input-4">Model</label>
-     <input class="form-control" id="input-4" type="text" placeholder="Car Name" required name="productName">
-    </div>
-
-    <div class="form-group">
-     <label for="input-5">Details</label>
-     <input class="form-control" id="input-5" type="text" placeholder="Details" required name="discription">
-    </div>
-
-    <div class="form-group">
-      <label for="input-5">Price</label>
-      <input class="form-control" id="input-5" type="tel" placeholder="Price" required name="price">
-     </div>
-
-     <div class="form-group">
-      <label for="input-5">Image</label>
-      <input type="file" multiple class="form-control" id="input-5" name="image" required placeholder="Choose an image" />
-     </div>
-    
-    <div class="form-group">
-     <button type="submit" class="btn btn-success px-5"> Add Car</button>
-   </div>
-   </form>
   </div>
-  </div>
-</div>
 
 
-<%-include('../admin/layout/admin-footer-layout') -%>
+  <%-include('../admin/layout/admin-footer-layout') -%>

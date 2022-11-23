@@ -20,13 +20,13 @@ module.exports = {
     home: async (req, res) => {
         const users = await UserModel.find().countDocuments()
         const products = await ProductModel.find().countDocuments()
-        const sold = await ProductModel.find({sold : 'Sold'}).countDocuments()
-        const blocked = await ProductModel.find({ status : 'Blocked'}).countDocuments()
+        const sold = await ProductModel.find({ sold: 'Sold' }).countDocuments()
+        const blocked = await ProductModel.find({ status: 'Blocked' }).countDocuments()
         const Brand = await BrandModel.find().countDocuments()
         const Type = await TypeModel.find().countDocuments()
         const Fuel = await FuelModel.find().countDocuments()
         const Banner = await BannerModel.find().countDocuments()
-        res.render('admin/home', { admin: req.session.admin , users, products, sold, blocked, Brand, Type, Fuel, Banner})
+        res.render('admin/home', { admin: req.session.admin, users, products, sold, blocked, Brand, Type, Fuel, Banner })
     },
 
     //login page
@@ -180,7 +180,7 @@ module.exports = {
 
 
 
-        const { type, brand, fuelType, productName, discription, price } = req.body;
+        const { type, brand, fuelType, productName, discription, price, advance } = req.body;
 
         const image = req.files;
         image.forEach(img => { });
@@ -195,6 +195,7 @@ module.exports = {
             productName,
             discription,
             price,
+            advance,
             // image: image.filename,
             image: productimages
         });
@@ -217,7 +218,7 @@ module.exports = {
         const items_per_page = 5;
         const totalproducts = await ProductModel.find().countDocuments()
         console.log(totalproducts);
-        const products = await ProductModel.find({sold: 'Notsold'}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
+        const products = await ProductModel.find({ sold: 'Notsold' }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
         console.log(products)
         res.render('admin/viewproduct', {
             products, index: 1, admin: req.session.admin, page,
@@ -251,13 +252,38 @@ module.exports = {
     },
 
 
+    // Update Product
+    updateProduct: async (req, res) => {
+        const { type, brand, fuelType, productName, discription, price, advance } = req.body;
+
+        if (req.file) {
+            // await ProductModel.findByIdAndUpdate(
+            //     { _id: req.params.id }, { $set: { image: image.filename } }
+            // );
+            const image = req.files;
+            image.forEach(img => { });
+            console.log(image);
+            const productimages = image != null ? image.map((img) => img.filename) : null
+            console.log(productimages)
+
+            await ProductModel.findByIdAndUpdate({ _id: req.params.id }, { $set: { image: productimages } })
+        }
+        let details = await ProductModel.findOneAndUpdate(
+            { _id: req.params.id }, { $set: { type, brand, fuelType, productName, discription, price, advance } }
+        );
+        await details.save().then(() => {
+            res.redirect('/admin/allproduct')
+        })
+    },
+
+
     // sold car page
     soldcarpage: async (req, res) => {
         const page = parseInt(req.query.page) || 1;
         const items_per_page = 5;
-        const totalsoldproducts = await ProductModel.find({sold: 'Sold'}).countDocuments()
+        const totalsoldproducts = await ProductModel.find({ sold: 'Sold' }).countDocuments()
         console.log(totalsoldproducts);
-        const products = await ProductModel.find({sold: 'Sold'}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
+        const products = await ProductModel.find({ sold: 'Sold' }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
         console.log(products)
         res.render('admin/soldcar', {
             products, index: 1, admin: req.session.admin, page,
@@ -267,15 +293,15 @@ module.exports = {
         })
 
     },
-    
-    
+
+
     // Blocked car page
     blockedcarpage: async (req, res) => {
         const page = parseInt(req.query.page) || 1;
         const items_per_page = 5;
-        const totalblockedproducts = await ProductModel.find({status: 'Blocked'}).countDocuments()
+        const totalblockedproducts = await ProductModel.find({ status: 'Blocked' }).countDocuments()
         console.log(totalblockedproducts);
-        const products = await ProductModel.find({status: 'Blocked', sold: 'Notsold'}).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
+        const products = await ProductModel.find({ status: 'Blocked', sold: 'Notsold' }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
         console.log(products)
         res.render('admin/blockedcars', {
             products, index: 1, admin: req.session.admin, page,
@@ -284,25 +310,6 @@ module.exports = {
             PreviousPage: page - 1,
         })
 
-    },
-
-
-    // Update Product
-    updateProduct: async (req, res) => {
-        const { type, brand, fuelType, productName, discription, price } = req.body;
-
-        if (req.file) {
-            let image = req.file;
-            await ProductModel.findByIdAndUpdate(
-                { _id: req.params.id }, { $set: { image: image.filename } }
-            );
-        }
-        let details = await ProductModel.findOneAndUpdate(
-            { _id: req.params.id }, { $set: { type, brand, fuelType, productName, discription, price } }
-        );
-        await details.save().then(() => {
-            res.redirect('/admin/allproduct')
-        })
     },
 
 
@@ -328,28 +335,28 @@ module.exports = {
     soldCarp: async (req, res) => {
         const id = req.params.id
         await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { sold: "Sold" } })
-        .then(() => {
-            res.redirect('/admin/allproduct')
-        })
+            .then(() => {
+                res.redirect('/admin/allproduct')
+            })
     },
-   
-   
+
+
     // Sold Car
     soldCarb: async (req, res) => {
         const id = req.params.id
         await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { sold: "Sold" } })
-        .then(() => {
-            res.redirect('/admin/blockedcarpage')
-        })
+            .then(() => {
+                res.redirect('/admin/blockedcarpage')
+            })
     },
 
     // Not Sold Car
     notsoldCar: async (req, res) => {
         const id = req.params.id
         await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { sold: "Notsold" } })
-        .then(() => {
-            res.redirect('/admin/soldcarpage')
-        })
+            .then(() => {
+                res.redirect('/admin/soldcarpage')
+            })
     },
 
 

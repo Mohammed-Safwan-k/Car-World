@@ -25,6 +25,7 @@
                 <th scope="col">Car Name</th>
                 <th scope="col">Details</th>
                 <th scope="col">Price</th>
+                <th scope="col">Advance Amount</th>
                 <th scope="col">Image</th>
                 <th scope="col">OPTIONS</th>
               </tr>
@@ -52,6 +53,9 @@
                   </td>
                   <td>
                     <%= product.price %>
+                  </td>
+                  <td>
+                    <%= product.advance %>
                   </td>
                   <td><img src='/images/car/<%= product.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
                   <td><a class="btn btn-primary" href="/admin/editproductpage/<%= product._id %>" role="button"
