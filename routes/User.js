@@ -27,6 +27,8 @@ router.get('/editprofilepage/:id',controller.editprofilepage)
 router.get('/categoryProductspage/:id/:category',controller.categoryproductpage)
 router.get('/blockedcarspage',controller.blockedcarspage)
 
+router.get('/orderpage/:id',controller.orderpage)
+
 
 router.get('/demo',controller.demo)
 

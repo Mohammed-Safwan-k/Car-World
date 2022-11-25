@@ -6,17 +6,25 @@ const orderSchema = new mongoose.Schema({
 
     userId: {
         type: Objectid,
-
+        required: true,
+        ref: 'UserData'
     },
 
-    amount:{
-        type: Number,
-        required: true
+    product: {
+        type: Objectid,
+        required: true,
+        ref: 'ProductData'
     },
-    currency: {
+
+    payment: {
         type: String,
-        required: true
+        default: 'Pending'
     },
+
+    orderstatus: {
+        type :String,
+        default: 'Order Pending'
+    }
     
 })
 
