@@ -52,12 +52,12 @@
 
    
             <div class="card-body" style="display: flex; justify-content: space-around;">
-                <form action="/orderpage/<%= id %>" method="get">
+                <!-- <form id="/checkout-form" > -->
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-round px-5" style="width: 200px; height: 50px;"><i class="icon-lock"></i>
+                        <button type="button" onclick="payment('<%= product._id %>')" class="btn btn-success btn-round px-5" style="width: 200px; height: 50px;"><i class="icon-lock"></i>
                             Proceed To Payment</button>
                     </div>
-                </form>
+                <!-- </form> -->
             </div>
 
 

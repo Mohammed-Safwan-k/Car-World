@@ -19,8 +19,9 @@
                 <th scope="col">Brand</th>
                 <th scope="col">FUEL TYPE</th>
                 <th scope="col">Car Name</th>
-                <th scope="col">Details</th>
+                <th scope="col">Blocked Date</th>
                 <th scope="col">Price</th>
+                <th scope="col">Advance</th>
                 <th scope="col">Image</th>
                 <th scope="col">OPTIONS</th>
               </tr>
@@ -44,10 +45,13 @@
                     <%= product.productName %>
                   </td>
                   <td>
-                    <%= product.discription %>
+                    <%= product.blockedDate %>
                   </td>
                   <td>
                     <%= product.price %>
+                  </td>
+                  <td>
+                    <%= product.advance %>
                   </td>
                   <td><img src='/images/car/<%= product.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
                   <td>

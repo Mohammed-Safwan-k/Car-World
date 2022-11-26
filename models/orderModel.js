@@ -16,16 +16,11 @@ const orderSchema = new mongoose.Schema({
         ref: 'ProductData'
     },
 
-    payment: {
-        type: String,
-        default: 'Pending'
+    date: {
+        type: Date,
+        default: Date.now
     },
 
-    orderstatus: {
-        type :String,
-        default: 'Order Pending'
-    }
-    
 })
 
 module.exports = OrderModel = mongoose.model("OrderDatas", orderSchema)

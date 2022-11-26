@@ -27,7 +27,6 @@ router.get('/editprofilepage/:id',controller.editprofilepage)
 router.get('/categoryProductspage/:id/:category',controller.categoryproductpage)
 router.get('/blockedcarspage',controller.blockedcarspage)
 
-router.get('/orderpage/:id',controller.orderpage)
 
 
 router.get('/demo',controller.demo)
@@ -52,6 +51,10 @@ router.post('/blockCar/:id',controller.blockCar)
 
 router.post('/updateProfile/:id',controller.updateProfile)
 
+router.post('/order',controller.order)
+router.post('/verifyorder',controller.verifyorder)
+
+router.get('/ordersuccess/:id',controller.ordersuccess)
 
 
 

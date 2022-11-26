@@ -100,7 +100,8 @@
 
                         <div class="fh5co-tab-content tab-content active" data-tab-content="1">
                             <div class="col-md-10 col-md-offset-1">
-                                <span class="price">RS: <%= product.price %></span>
+                                <span class="price" style="color: green;">RS: <%= product.price %></span>
+                                <span class="price" style="color: red;">Advance RS: <%= product.advance %></span>
                                 <h2><%= product.brand.brand %> <%= product.productName %></h2>
                                 
                                 <!-- <p></p> -->
@@ -131,10 +132,10 @@
                                         <h2 class="uppercase">DESCRIPTION</h2>
                                         <p><%= product.discription %></p>
                                     </div>
-                                    <!-- <div class="col-md-6">
-                                        <h2 class="uppercase"> NAME </h2>
-                                        <p><%= product.productName %></p>
-                                    </div> -->
+                                    <div class="col-md-6">
+                                        <h2 class="uppercase"> Advance Payment </h2>
+                                        <p>Rs: <%= product.advance %></p>
+                                    </div>
                                 </div>
                                 
                             </div>

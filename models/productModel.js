@@ -47,7 +47,11 @@ const productSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    blockedDate: {
+        type: Date,
+        default: Date.now
+    },
 
 
 

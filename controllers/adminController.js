@@ -7,6 +7,7 @@ const FuelModel = require('../models/fueltypeModel')
 const BannerModel = require("../models/bannerModel")
 
 const bcrypt = require("bcrypt");
+const OrderModel = require("../models/orderModel");
 
 
 module.exports = {
@@ -61,8 +62,7 @@ module.exports = {
 
 
 
-    //-------------------------------------------------------------------------
-    // USER
+    //************************************************ User Start **************************************************************************** */
 
     //add user page
     adduserpage: (req, res) => {
@@ -139,9 +139,10 @@ module.exports = {
             })
     },
 
-    //-------------------------------------------------------------------------
-    // PRODUCTS
+    //**************************************************** User End *********************************************************************************/
 
+
+    //**************************************************** Product Start ***********************************************************************************/
 
     //add product page
     addproductpage: async (req, res) => {
@@ -154,8 +155,6 @@ module.exports = {
 
         }
     },
-
-
 
     //add products
     addproduct: async (req, res) => {
@@ -205,11 +204,11 @@ module.exports = {
             .save()
             .then(() => {
                 res.redirect("/admin/allproduct");
-            })
-            .catch((err) => {
+            }).catch((err) => {
                 console.log(err.message);
                 res.redirect("/admin/addproductpage");
             });
+
     },
 
     //view all products
@@ -236,7 +235,6 @@ module.exports = {
         res.redirect("/admin/allproduct")
     },
 
-
     //edit product page
     editproductpage: async (req, res) => {
         if (req.session.adminLogin) {
@@ -250,7 +248,6 @@ module.exports = {
         }
 
     },
-
 
     // Update Product
     updateProduct: async (req, res) => {
@@ -275,7 +272,8 @@ module.exports = {
             res.redirect('/admin/allproduct')
         })
     },
-
+    //*************************************************** Product End *****************************************************************************************/
+    //====================================================================================================================
 
     // sold car page
     soldcarpage: async (req, res) => {
@@ -294,6 +292,7 @@ module.exports = {
 
     },
 
+    //====================================================================================================================
 
     // Blocked car page
     blockedcarpage: async (req, res) => {
@@ -301,7 +300,7 @@ module.exports = {
         const items_per_page = 5;
         const totalblockedproducts = await ProductModel.find({ status: 'Blocked' }).countDocuments()
         console.log(totalblockedproducts);
-        const products = await ProductModel.find({ status: 'Blocked', sold: 'Notsold' }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
+        const products = await ProductModel.find({ status: 'Blocked', sold: 'Notsold' }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType').sort({ blockedDate: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
         console.log(products)
         res.render('admin/blockedcars', {
             products, index: 1, admin: req.session.admin, page,
@@ -312,6 +311,7 @@ module.exports = {
 
     },
 
+    //====================================================================================================================
 
     // UnBlock Car
     unblockCar: async (req, res) => {
@@ -331,6 +331,8 @@ module.exports = {
             })
     },
 
+    //====================================================================================================================
+
     // Sold Car
     soldCarp: async (req, res) => {
         const id = req.params.id
@@ -339,7 +341,6 @@ module.exports = {
                 res.redirect('/admin/allproduct')
             })
     },
-
 
     // Sold Car
     soldCarb: async (req, res) => {
@@ -360,7 +361,8 @@ module.exports = {
     },
 
 
-    //------------------------------------------------------------------------------------------------------------------
+    //====================================================================================================================
+
     // BRAND
     brandpage: async (req, res) => {
         const brand = await BrandModel.find({});
@@ -380,11 +382,7 @@ module.exports = {
         res.redirect("/admin/brandpage")
     },
 
-
-
-
-
-
+    //====================================================================================================================
 
     // VEHICLE TYPE
     vehicletypepage: async (req, res) => {
@@ -405,8 +403,7 @@ module.exports = {
         res.redirect("/admin/vehicletype")
     },
 
-
-
+    //====================================================================================================================
 
     // FUEL TYPE
     fueltypepage: async (req, res) => {
@@ -427,15 +424,28 @@ module.exports = {
         res.redirect("/admin/fueltype")
     },
 
+    //====================================================================================================================
 
 
+    //====================================================================================================================
 
+    // Order Page / Payment Page
+    orders: async (req, res) => {
+        const page = parseInt(req.query.page) || 1;
+        const items_per_page = 5;
+        const totalorders = await OrderModel.find().countDocuments()
+        console.log(totalorders);
+        const orders = await OrderModel.find().populate('userId').populate('product').populate('product.type.type').populate('product.brand.brand').populate('product.fuelType').sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
+        console.log(orders)
+        res.render('admin/orders', {
+            orders, index: 1, admin: req.session.admin, page,
+            hasNextPage: items_per_page * page < totalorders,
+            hasPreviousPage: page > 1,
+            PreviousPage: page - 1,
+        })
 
-
-    //------------------------------------------------------------------------------------------------------------------
-
-
-
+    },
+    //====================================================================================================================
 
     //******************************************* BANNER START ***********************************************************/
 
@@ -484,7 +494,6 @@ module.exports = {
         res.redirect("/admin/allBanner")
 
     },
-
 
     //******************************************* BANNER END ***********************************************************/
 

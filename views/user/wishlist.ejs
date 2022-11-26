@@ -21,6 +21,7 @@
                 <th scope="col">Car Name</th>
                 <th scope="col">FUEL TYPE</th>
                 <th scope="col">Price</th>
+                <th scope="col">Advance</th>
                 <th scope="col">Image</th>
                 <th scope="col">OPTIONS</th>
               </tr>
@@ -46,11 +47,14 @@
                   <td>
                     RS: <%= x.result.price %>
                   </td>
+                  <td>
+                    RS: <%= x.result.advance %>
+                  </td>
                   <td><img src='/images/car/<%= x.result.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
                   <td>
                     <form action="/removeFromWishlist/<%= x.result._id %>" method="post">
                       <button type="submit" class="btn  btn-danger" style="width: 100px;"
-                        onclick="return confirm('Are you sure you want to delete ?')"><i
+                        ><i
                           class="bi bi-trash-fill"></i></button>
                     </form>
 

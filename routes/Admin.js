@@ -32,6 +32,9 @@ router.get('/fueltype',  adminSession.adminSession, controller.fueltypepage)
 
 router.get("/addBannerPage", adminSession.adminSession, controller.addBannerPage)
 
+router.get("/orders", adminSession.adminSession, controller.orders)
+
+
 
 
 

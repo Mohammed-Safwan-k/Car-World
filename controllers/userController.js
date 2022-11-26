@@ -8,13 +8,12 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer")
 const OrderModel = require("../models/orderModel")
 const BannerModel = require("../models/bannerModel");
-const { default: mongoose } = require("mongoose");
+// const { default: mongoose } = require("mongoose");
 const Razorpay = require('razorpay')
+const mongoose = require('mongoose');
 
-var instance = new Razorpay({
-  key_id: 'rzp_test_ySng6ZWmNYwGd1',
-  key_secret: 'PNUZlKIJV7NhpD7UhzEXtRkB',
-});
+
+
 
 
 
@@ -420,7 +419,7 @@ module.exports = {
     if (req.session.userLogin) {
 
       const id = req.params.id;
-      const product = ProductModel.findById({ _id: id })
+      const product = await ProductModel.findOne({ _id: id })
       const brand = await BrandModel.find()
       const fuel = await FuelModel.find()
       const type = await TypeModel.find()
@@ -452,24 +451,96 @@ module.exports = {
   },
 
 
-  // Order Page
-  orderpage: async (req, res) => {
-    if(req.session.userLogin){
+  // Order Payment
+  order: async (req, res) => {
+    
+    if (req.session.userLogin) {
+      const id = req.body.proId
+      console.log(id);
+      const amount = await ProductModel.findOne({ _id: id })
 
-      const id = req.params.id;
-      const userId = req.session.userId
-      const brand = await BrandModel.find()
-      const fuel = await FuelModel.find()
-      const type = await TypeModel.find()
-      const brandproducts = await ProductModel.find({ $or: [{ type: id }, { brand: id }, { fuelType: id }] }).populate('type', 'typeName').populate('brand', 'brand').populate('fuelType')
+      var instance = new Razorpay({
+        key_id: 'rzp_test_ySng6ZWmNYwGd1',
+        key_secret: 'PNUZlKIJV7NhpD7UhzEXtRkB',
+      });
 
-      const order = OrderModel({userId, product:id})
-       await order.save()
-      .then(() => {
-        res.render('user/order', {  login: true, user: req.session.user, brandproducts, brand, type, fuel })
-      })
+      instance.orders.create(
+        {
+          amount: (amount.advance) * 100,
+          currency: "INR",
+          receipt: "car1",
+        },
+        function (err, order) {
+          if (err) {
+            console.log('Error');
+            console.log(err);
+          } else {
+            console.log("New Order: ", order);
+            let response = {
+              id,order
+            }
+             res.status(200).send(response);
+
+          }
+        }
+        
+      );
     }
   },
+
+
+  // Verify Payment
+  verifyorder: async (req, res) => {
+    const details = req.body
+    console.log(req.body, "dt");
+    const crypto = require('crypto')
+    let hmac = crypto.createHmac('sha256', "PNUZlKIJV7NhpD7UhzEXtRkB")
+    hmac.update(details['payment[razorpay_order_id]'] + "|" + details['payment[razorpay_payment_id]'], "PNUZlKIJV7NhpD7UhzEXtRkB");
+    hmac = hmac.digest('hex')
+
+    const orderId = details['order[order][receipt]']
+    console.log("Showing orderID");
+    console.log(orderId);
+    // console.log(hmac,details['payment[razorpay_signature]'],"check match")
+    let response = { "status": false }
+    if (details['payment[razorpay_signature]'] == hmac) {
+      console.log('order Successfull');
+      response = { "status": true }
+    } else {
+      response = { "status": false }
+      console.log('payment failed');
+    }
+    res.send(response);
+  },
+
+
+  // Block Car after payment
+  ordersuccess: async (req, res) => {
+    if (req.session.userLogin) {
+      const userId = req.session.userId
+      const id = req.params.id
+
+      const blocked = OrderModel({
+        userId: userId,
+        product: id
+      })
+
+      console.log(Date.now());
+      await UserModel.findOneAndUpdate({ _id: userId }, { $addToSet: { BookedVehicles: id } })
+      await ProductModel.findByIdAndUpdate({ _id: id }, { $set: { status: "Blocked", blockedDate: Date.now()}})
+
+      await blocked.save()
+      .then(() => {
+        res.redirect('/')
+      }).catch((err) => {
+        console.log(err.message);
+        res.redirect("/");
+    });
+
+    }
+
+  },
+
 
   // BlockedCarModel: async (req,res) => {
   //   console.log("reached here");
