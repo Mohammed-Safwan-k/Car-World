@@ -79,6 +79,9 @@ router.post("/deletebanner/:id", adminSession.adminSession, controller.deleteban
 
 
 
+router.use(function (req, res, next) {
+    next(createError(404));
+});
 
 
 

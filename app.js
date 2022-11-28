@@ -35,16 +35,16 @@ app.use(cookieParser());
 
 // Multer (file upload setup)
 const storage = multer.diskStorage({
-    destination: (req,file,cb) => {
+    destination: (req, file, cb) => {
         cb(null, "public/images/car/");
     },
-    filename: (req,file,cb) => {
-        cb(null,file.fieldname +"_" + Date.now() + path.extname(file.originalname))
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + "_" + Date.now() + path.extname(file.originalname))
         console.log(file.fieldname + Date.now() + path.extname(file.originalname));
     },
 });
 // const upload = multer({ storage: storage})
-app.use(multer({storage: storage}).array("image", 10))
+app.use(multer({ storage: storage }).array("image", 10))
 
 
 
@@ -55,7 +55,7 @@ app.use(session({
     secret: 'secret-key',
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: oneDay},
+    cookie: { maxAge: oneDay },
 }
 ))
 
@@ -78,6 +78,13 @@ app.use("/", homeRoute);
 
 // Admin route
 app.use("/admin", adminRoute);
+
+//Error route
+app.use(function (err, req, res, next) {
+    console.log("admin error route handler")
+    res.status(err.status || 500);
+    res.render('error/error');
+});
 
 
 

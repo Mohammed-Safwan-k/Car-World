@@ -29,7 +29,7 @@ router.get('/blockedcarspage',controller.blockedcarspage)
 
 
 
-router.get('/demo',controller.demo)
+// router.get('/demo',controller.demo)
 
 
 router.get('/logout',controller.logout)
@@ -55,6 +55,8 @@ router.post('/order',controller.order)
 router.post('/verifyorder',controller.verifyorder)
 
 router.get('/ordersuccess/:id',controller.ordersuccess)
+
+
 
 
 

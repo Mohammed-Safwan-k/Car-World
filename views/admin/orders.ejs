@@ -4,7 +4,7 @@
   <div class="card">
     <div class="card-body">
       <div style="display: flex; justify-content: space-between">
-        <h5 class="card-title">Blocked Cars</h5>
+        <h5 class="card-title">Orders</h5>
       </div>
       <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div> -->
 
@@ -26,13 +26,14 @@
           </thead>
           <tbody>
             <% orders.forEach(function(x){ %>
+              <%console.log(x)%>
             <tr>
               <th scope="row"><%= index++ %></th>
               <td><%= x.userId?.userName %></td>
               <td><%= x.userId?.fullName %></td>
-              <td><%= x?.product?.brand %></td>
+              <td><%= x.product?.brand.brand %></td>
               <td><%= x.product?.productName %></td>
-              <td><%= x.product?.fuelType %></td>
+              <td><%= x.product?.fuelType.fuelType %></td>
               <td><%= x.date %></td>
               <td><%= x.product?.price %></td>
               <td><%= x.product?.advance %></td>

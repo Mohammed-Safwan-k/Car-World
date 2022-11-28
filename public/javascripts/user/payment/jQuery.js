@@ -39,7 +39,7 @@ function razorpayPayment(order) {
             address: "Razorpay Corporate Office",
         },
         theme: {
-            color: "#D10024",
+            color: "#d1c286",
         },
     };
     function verifyPayment(payment, order) {
