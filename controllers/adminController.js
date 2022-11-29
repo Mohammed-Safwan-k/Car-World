@@ -540,7 +540,7 @@ module.exports = {
     fueltypepage: async (req, res) => {
         try {
             const fuelType = await FuelModel.find({});
-            res.render('admin/fuelType', { fuelType, admin: req.session.admin })
+            res.render('admin/fueltype', { fuelType, admin: req.session.admin })
 
         } catch (err) {
             next(err)
