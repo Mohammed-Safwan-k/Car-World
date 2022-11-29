@@ -23,6 +23,7 @@
           <div class="form-group">
             <label for="input-2">Brand</label>
             <select class="group input-group form-control" name="brand" id="">
+              <option value="" selected>Select Your Brand</option>
               <% brand.forEach(function(brand){ %>
                 <option value="<%= brand._id %>">
                   <%= brand.brand %>
@@ -36,6 +37,7 @@
           <div class="form-group">
             <label for="input-3">Fuel Type</label>
             <select class="group input-group form-control" name="fuelType" id="">
+              <option value="" selected>Select Your Fuel Type</option>
               <% fuel.forEach(function(fuel){ %>
                 <option value="<%= fuel._id  %>">
                   <%= fuel.fuelType %>
