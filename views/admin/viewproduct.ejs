@@ -14,6 +14,11 @@
         </div>
         <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div> -->
 
+        <% if (products.length == 0) { %> 
+          <div class="col-12 text-center">
+            <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
+          </div>
+        <% } else { %> 
         <div class="table-responsive">
           <table class="table table-hover">
             <thead>
@@ -105,6 +110,7 @@
             </tbody>
           </table>
         </div>
+        <% } %>
       </div>
     </div>
   </div>

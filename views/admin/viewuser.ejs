@@ -12,7 +12,11 @@
           </div>
 
         </div>
-
+        <% if (users.length == 0) { %> 
+          <div class="col-12 text-center">
+            <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
+          </div>
+        <% } else { %> 
         <div class="table-responsive">
           <table class="table table-hover">
             <thead>
@@ -62,6 +66,7 @@
             </tbody>
           </table>
         </div>
+        <% } %>
       </div>
     </div>
   </div>
