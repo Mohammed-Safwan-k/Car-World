@@ -26,6 +26,11 @@ style="background-image:url('https://wallpaperaccess.com/full/2492629.jpg');">
     <div class="card">
       <div class="card-body">
         <!-- <h5 class="card-title">Blocked Cars</h5> -->
+        <% if (cars.length == 0) { %> 
+          <div class="col-12 text-center">
+            <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
+          </div>
+        <% } else { %> 
         <div class="table-responsive">
           <table class="table table-hover">
             <thead>
@@ -77,6 +82,7 @@ style="background-image:url('https://wallpaperaccess.com/full/2492629.jpg');">
             </tbody>
           </table>
         </div>
+        <% } %>
       </div>
     </div>
   </div>

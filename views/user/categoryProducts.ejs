@@ -29,6 +29,11 @@
                     Odit ab aliquam dolor eius.</p>
             </div>
         </div> -->
+        <% if (brandproducts.length == 0) { %> 
+            <div class="col-12 text-center">
+              <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
+            </div>
+          <% } else { %> 
         <div class="row">
             <% brandproducts.forEach(function(product){ %>
 
@@ -59,6 +64,7 @@
 
 
         </div>
+        <% } %>
     </div>
 </div>
 
