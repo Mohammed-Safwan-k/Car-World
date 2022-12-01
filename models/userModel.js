@@ -29,7 +29,11 @@ const userSchema = new mongoose.Schema({
     BookedVehicles:[{
      type:mongoose.Types.ObjectId,
      ref:'ProductData'
-    }]
+    }],
+    date: {
+        type: Date,
+        default: Date.now
+    },
 
 })
 

@@ -140,8 +140,18 @@ module.exports = {
     //view all user
     alluser: async (req, res) => {
         try {
-            const users = await UserModel.find({})
-            res.render('admin/viewuser', { users, index: 1, admin: req.session.admin })
+            const page = parseInt(req.query.page) || 1;
+            const items_per_page = 10;
+            const totalusers = await UserModel.find().countDocuments()
+            console.log(totalusers);
+            const users = await UserModel.find({}).sort({ date: -1 }).skip((page - 1) * items_per_page).limit(items_per_page)
+            res.render('admin/viewuser', {
+                users, index: 1, admin: req.session.admin,
+                page,
+                hasNextPage: items_per_page * page < totalusers,
+                hasPreviousPage: page > 1,
+                PreviousPage: page - 1,
+            })
 
         } catch (err) {
             next(err)
