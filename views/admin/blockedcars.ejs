@@ -5,100 +5,100 @@
       <div class="card-body ">
         <div style="display: flex; justify-content: space-between;">
           <h5 class="card-title">Blocked Cars</h5>
-          
+
 
         </div>
         <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div> -->
-
-        <% if (products.length == 0) { %> 
+        <br>
+        <% if (products.length==0) { %>
           <div class="col-12 text-center">
-            <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
+            <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order"
+              style="width: 400px; height:300px ;">
           </div>
-        <% } else { %> 
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Type</th>
-                <th scope="col">Brand</th>
-                <th scope="col">FUEL TYPE</th>
-                <th scope="col">Car Name</th>
-                <th scope="col">Blocked Date</th>
-                <th scope="col">Price</th>
-                <th scope="col">Advance</th>
-                <th scope="col">Image</th>
-                <th scope="col">OPTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% products.forEach(function(product){ %>
-                <tr>
-                  <th scope="row">
-                    <%= index++ %>
-                  </th>
-                  <td>
-                    <%= product.type.typeName %>
-                  </td>
-                  <td>
-                    <%= product.brand.brand %>
-                  </td>
-                  <td>
-                    <%= product.fuelType.fuelType %>
-                  </td>
-                  <td>
-                    <%= product.productName %>
-                  </td>
-                  <td>
-                    <%= product.blockedDate %>
-                  </td>
-                  <td>
-                    <%= product.price %>
-                  </td>
-                  <td>
-                    <%= product.advance %>
-                  </td>
-                  <td><img src='/images/car/<%= product.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
-                  <td>
+          <% } else { %>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">FUEL TYPE</th>
+                    <th scope="col">Car Name</th>
+                    <th scope="col">Blocked Date</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Advance</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">OPTIONS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% products.forEach(function(product){ %>
+                    <tr>
+                      <th scope="row">
+                        <%= index++ %>
+                      </th>
+                      <td>
+                        <%= product.type.typeName %>
+                      </td>
+                      <td>
+                        <%= product.brand.brand %>
+                      </td>
+                      <td>
+                        <%= product.fuelType.fuelType %>
+                      </td>
+                      <td>
+                        <%= product.productName %>
+                      </td>
+                      <td>
+                        <%= product.blockedDate %>
+                      </td>
+                      <td>
+                        <%= product.price %>
+                      </td>
+                      <td>
+                        <%= product.advance %>
+                      </td>
+                      <td><img src='/images/car/<%= product.image[0] %>' alt="" style="height: 50px; width: 60px;"></td>
+                      <td>
 
-                    <% if (product.status=="Blocked" ) { %>
-                        <form action="/admin/unblockCar/<%= product._id %> " method="post">
+                        <% if (product.status=="Blocked" ) { %>
+                          <form action="/admin/unblockCar/<%= product._id %> " method="post">
                             <button type="submit" class="btn btn-warning" style="width: 100px;"> UnBlock</button>
-                        </form>
-                        <% } %>
-                        <br>    
-                        
-                      <!-- Sold or not Sold -->
-                      <% if (product.sold=='Notsold' ) { %>
-                        <form action="/admin/soldCarb/<%= product._id %> " method="post">
-                          <button type="submit" class="btn btn-success" style="width: 100px;">Sold</button>
-                        </form>
-                      <% } %>
-                        
-                  </td>
-                </tr>
-              <% }) %>
-                  <section class="d-flex justify-content-center mt-2">
-                    <% if(hasPreviousPage){ %>
-                      <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black" class="text-center"
-                        href="/admin/blockedcarpage?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
-                          aria-hidden="true"></i></a>
-                      <% } %>
-                        <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black; border: 1px solid black;"
-                          href="/admin/blockedcarpage?page=<%= page %>">
-                          <%= page %>
-                        </a>
-                        <% if(hasNextPage) { %>
-                          <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black;"
-                            href="/admin/blockedcarpage?page=<%=  page+1 %>"><i class="fa fa-chevron-right"
-                              aria-hidden="true"></i></a>
+                          </form>
                           <% } %>
+                            <br>
 
-                  </section>
-            </tbody>
-          </table>
-        </div>
-        <% } %>
+                            <!-- Sold or not Sold -->
+                            <% if (product.sold=='Notsold' ) { %>
+                              <form action="/admin/soldCarb/<%= product._id %> " method="post">
+                                <button type="submit" class="btn btn-success" style="width: 100px;">Sold</button>
+                              </form>
+                              <% } %>
+
+                      </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+            </div>
+            <section class="d-flex justify-content-center mt-2">
+              <% if(hasPreviousPage){ %>
+                <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:white" class="text-center"
+                  href="/admin/blockedcarpage?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
+                    aria-hidden="true"></i>&nbsp; Previous</a>
+                <% } %>
+                  <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:white; border: 2px solid white; border-radius: 50px;"
+                    href="/admin/blockedcarpage?page=<%= page %>">
+                    <%= page %>
+                  </a>
+                  <% if(hasNextPage) { %>
+                    <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:white;"
+                      href="/admin/blockedcarpage?page=<%=  page+1 %>">Next &nbsp; <i class="fa fa-chevron-right"
+                        aria-hidden="true"></i></a>
+                    <% } %>
+            </section>
+            <% } %>
       </div>
     </div>
   </div>

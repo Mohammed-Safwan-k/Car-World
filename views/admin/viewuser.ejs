@@ -10,8 +10,8 @@
               <button class="btn btn-dark me-md-2" type="submit">Add User</button>
             </form>
           </div>
-
         </div>
+        <br>
         <% if (users.length == 0) { %> 
           <div class="col-12 text-center">
             <img src="https://ibellstore.com/images/no-item-found-here.png" alt="no order" style="width: 400px; height:300px ;">
@@ -63,26 +63,26 @@
                   </td>
                 </tr>
                 <% }) %>
-                <section class="d-flex justify-content-center mt-2">
-                  <% if(hasPreviousPage){ %>
-                    <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black" class="text-center"
-                      href="/admin/alluser?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
-                        aria-hidden="true"></i></a>
-                    <% } %>
-                      <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black; border: 1px solid black;"
-                        href="/admin/alluser?page=<%= page %>">
-                        <%= page %>
-                      </a>
-                      <% if(hasNextPage) { %>
-                        <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black;"
-                          href="/admin/alluser?page=<%=  page+1 %>"><i class="fa fa-chevron-right"
-                            aria-hidden="true"></i></a>
-                        <% } %>
+              </tbody>
+            </table>
+          </div>
+          <section class="d-flex justify-content-center mt-2">
+            <% if(hasPreviousPage){ %>
+              <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:white" class="text-center"
+                href="/admin/alluser?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
+                  aria-hidden="true"></i>&nbsp; Previous</a>
+              <% } %>
+                <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:white; border: 2px solid white; border-radius: 50px;"
+                  href="/admin/alluser?page=<%= page %>">
+                  <%= page %>
+                </a>
+                <% if(hasNextPage) { %>
+                  <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:white;"
+                    href="/admin/alluser?page=<%=  page+1 %>">Next &nbsp; <i class="fa fa-chevron-right"
+                      aria-hidden="true"></i></a>
+                  <% } %>
 
-                </section>
-            </tbody>
-          </table>
-        </div>
+          </section>
         <% } %>
       </div>
     </div>
